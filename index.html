@@ -578,6 +578,223 @@
     .gallery-grid { grid-template-columns: 1fr; }
   }
 
+  /* ── PRICING ── */
+  #pricing { padding: 100px 0; }
+  .pricing-wrap { padding: 0 40px; margin-top: 56px; }
+
+  .pricing-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    border-radius: 28px; overflow: hidden;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 12px 56px rgba(0,0,0,0.08);
+  }
+  .tier {
+    padding: 40px 36px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    display: flex; flex-direction: column;
+    position: relative;
+    border-right: 1px solid var(--glass-border);
+    transition: background 0.3s;
+  }
+  .tier:last-child { border-right: none; }
+  .tier.popular { background: rgba(255,255,255,0.82); }
+
+  .tier-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: linear-gradient(135deg, var(--accent), #FF8C6B);
+    color: #fff; font-size: 0.65rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 100px;
+    width: fit-content; margin-bottom: 20px;
+    box-shadow: 0 3px 12px rgba(255,92,53,0.3);
+  }
+  .tier-badge::before { content: '★ '; }
+  .tier-spacer { height: 37px; }
+
+  .tier-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.45rem; font-weight: 400; margin-bottom: 6px; color: var(--text);
+  }
+  .tier-sub { font-size: 0.8rem; color: var(--muted); line-height: 1.5; margin-bottom: 28px; }
+
+  .tier-price {
+    display: flex; align-items: baseline; gap: 6px;
+    margin-bottom: 28px; padding-bottom: 28px;
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .tier-from { font-size: 0.72rem; color: var(--muted); }
+  .tier-amount {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.6rem; font-weight: 300; line-height: 1;
+    color: var(--text); letter-spacing: -0.03em;
+  }
+  .tier-currency { font-size: 0.9rem; color: var(--muted); }
+  .tier.popular .tier-amount { color: var(--accent); }
+
+  .tier-features {
+    list-style: none; display: flex; flex-direction: column;
+    gap: 10px; flex: 1; margin-bottom: 32px;
+  }
+  .tier-features li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 0.84rem; color: var(--muted); line-height: 1.4;
+  }
+  .tier-features li::before {
+    content: ''; flex-shrink: 0; margin-top: 4px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--accent);
+    background-image: url("data:image/svg+xml,%3Csvg width='8' height='6' viewBox='0 0 8 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 3l2 2 4-4' stroke='white' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: center;
+  }
+  .tier-features li strong { color: var(--text); font-weight: 500; }
+
+  .tier-cta {
+    display: block; text-align: center;
+    padding: 12px 20px; border-radius: 100px;
+    font-size: 0.84rem; font-weight: 500;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .tier-cta-outline {
+    border: 1px solid rgba(0,0,0,0.14); color: var(--text);
+    background: rgba(255,255,255,0.3);
+  }
+  .tier-cta-outline:hover { border-color: var(--accent2); background: rgba(108,99,255,0.06); }
+  .tier-cta-fill {
+    background: var(--accent); color: #fff;
+    box-shadow: 0 4px 16px rgba(255,92,53,0.3);
+  }
+  .tier-cta-fill:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,92,53,0.4); }
+
+  @media (max-width: 900px) {
+    .pricing-wrap { padding: 0 20px; }
+    .pricing-row { grid-template-columns: 1fr; border-radius: 24px; }
+    .tier { border-right: none; border-bottom: 1px solid var(--glass-border); }
+    .tier:last-child { border-bottom: none; }
+    .tier.popular { background: rgba(255,255,255,0.82); }
+  }
+  @media (max-width: 600px) {
+    .pricing-wrap { padding: 0 16px; }
+    .tier { padding: 32px 28px; }
+    .tier-amount { font-size: 3rem; }
+  }
+
+  /* ── SCRATCH CARDS ── */
+  #promos { padding: 100px 0; }
+
+  .scratch-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 0 40px;
+    margin-top: 56px;
+  }
+
+  .scratch-card {
+    border-radius: 28px; overflow: hidden;
+    background: var(--glass-bg);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+  }
+
+  /* Top info area */
+  .scratch-info {
+    padding: 32px 36px 28px;
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .scratch-icon {
+    font-size: 2rem; margin-bottom: 16px; display: block;
+  }
+  .scratch-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.55rem; font-weight: 600;
+    line-height: 1.2; margin-bottom: 10px;
+    color: var(--text);
+  }
+  .scratch-desc {
+    font-size: 0.86rem; color: var(--muted); line-height: 1.7;
+  }
+  .scratch-badge {
+    display: inline-block; margin-top: 14px;
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em;
+    padding: 5px 14px; border-radius: 100px;
+    background: var(--badge-bg); color: var(--badge-color);
+  }
+  .scratch-card:nth-child(1) { --badge-bg: rgba(255,92,53,0.1); --badge-color: #FF5C35; --scratch-from: #FF5C35; --scratch-to: #FF9B5C; }
+  .scratch-card:nth-child(2) { --badge-bg: rgba(108,99,255,0.1); --badge-color: #6C63FF; --scratch-from: #6C63FF; --scratch-to: #A29CFF; }
+  .scratch-card:nth-child(3) { --badge-bg: rgba(13,207,170,0.1); --badge-color: #0DCFAA; --scratch-from: #0DCFAA; --scratch-to: #6EDFC6; }
+  .scratch-card:nth-child(4) { --badge-bg: rgba(245,158,11,0.1); --badge-color: #F59E0B; --scratch-from: #F59E0B; --scratch-to: #FCD34D; }
+
+  /* Scratch zone */
+  .scratch-zone {
+    position: relative; padding: 28px 36px;
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+  }
+  .scratch-hint {
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); text-align: center;
+  }
+  .scratch-canvas-wrap {
+    position: relative; width: 100%; border-radius: 16px; overflow: hidden;
+    cursor: crosshair; touch-action: none;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  }
+  /* Revealed promo underneath */
+  .scratch-reveal {
+    padding: 22px 24px;
+    background: linear-gradient(135deg, var(--scratch-from), var(--scratch-to));
+    text-align: center; border-radius: 16px;
+    min-height: 80px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 6px;
+  }
+  .scratch-reveal-label {
+    font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+  .scratch-reveal-code {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 600; color: #fff;
+    letter-spacing: 0.08em; line-height: 1;
+  }
+  .scratch-reveal-sub {
+    font-size: 0.78rem; color: rgba(255,255,255,0.8); margin-top: 2px;
+  }
+  /* Canvas sits on top */
+  .scratch-canvas {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    border-radius: 16px;
+  }
+  .scratch-done-msg {
+    font-size: 0.78rem; color: var(--muted); text-align: center;
+    opacity: 0; transition: opacity 0.4s; height: 0; overflow: hidden;
+    transition: opacity 0.4s, height 0.3s;
+  }
+  .scratch-done-msg.visible { opacity: 1; height: auto; }
+  .copy-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 20px; border-radius: 100px;
+    background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.35);
+    color: #fff; font-size: 0.78rem; font-weight: 500;
+    cursor: pointer; transition: background 0.2s;
+    margin-top: 8px;
+  }
+  .copy-btn:hover { background: rgba(255,255,255,0.32); }
+  .copy-btn.copied { background: rgba(255,255,255,0.4); }
+
+  @media (max-width: 900px) {
+    .scratch-grid { grid-template-columns: 1fr; padding: 0 20px; max-width: 520px; margin: 56px auto 0; }
+  }
+  @media (max-width: 600px) {
+    .scratch-grid { padding: 0 16px; }
+    .scratch-info { padding: 24px 24px 20px; }
+    .scratch-zone { padding: 20px 24px; }
+  }
+
   /* ── DARK THEME ── */
   @media (prefers-color-scheme: dark) {
     :root {
@@ -660,6 +877,10 @@
 
     /* Section tag colour — keep readable */
     .hero-scroll { color: var(--muted); }
+
+    /* Pricing popular tier */
+    .tier.popular { background: rgba(255,255,255,0.1); }
+    .tier-cta-outline { border-color: rgba(255,255,255,0.15); color: var(--text); background: rgba(255,255,255,0.05); }
   }
 </style>
 </head>
@@ -678,6 +899,8 @@
   <div class="nav-links">
     <a href="#portfolio">Работы</a>
     <a href="#usecases">Применение</a>
+    <a href="#pricing">Цены</a>
+    <a href="#promos">Акции</a>
     <a href="#about">Обо мне</a>
     <a href="#contact">Контакты</a>
   </div>
@@ -694,6 +917,8 @@
 ">
   <a href="#portfolio" onclick="toggleMenu()" style="display:block;padding:14px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:1rem;color:var(--text);text-decoration:none;">Работы</a>
   <a href="#usecases" onclick="toggleMenu()" style="display:block;padding:14px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:1rem;color:var(--text);text-decoration:none;">Применение</a>
+  <a href="#pricing" onclick="toggleMenu()" style="display:block;padding:14px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:1rem;color:var(--text);text-decoration:none;">Цены</a>
+  <a href="#promos" onclick="toggleMenu()" style="display:block;padding:14px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:1rem;color:var(--text);text-decoration:none;">Акции</a>
   <a href="#about" onclick="toggleMenu()" style="display:block;padding:14px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:1rem;color:var(--text);text-decoration:none;">Обо мне</a>
   <a href="#contact" onclick="toggleMenu()" style="display:block;padding:14px 0;font-size:1rem;color:var(--accent);text-decoration:none;font-weight:500;">Контакты</a>
 </div>
@@ -839,6 +1064,186 @@
       <div class="case-icon">📄</div>
       <div class="case-name">Документы и резюме</div>
       <p class="case-desc">Строгое, актуальное фото для загранпаспорта, CV, анкет и официальных профилей. Без очередей и скучных фотоателье.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-header">
+    <span class="section-tag">Стоимость</span>
+    <h2 class="section-title">Тарифы</h2>
+  </div>
+  <div class="pricing-wrap">
+    <div class="pricing-row">
+
+      <div class="tier">
+        <div class="tier-spacer"></div>
+        <div class="tier-name">Базовый</div>
+        <div class="tier-sub">Для первого знакомства — один образ, быстрый результат</div>
+        <div class="tier-price">
+          <span class="tier-from">от</span>
+          <span class="tier-amount">15</span>
+          <span class="tier-currency">BYN</span>
+        </div>
+        <ul class="tier-features">
+          <li><strong>5–8</strong> готовых фотографий</li>
+          <li><strong>1</strong> образ / стиль</li>
+          <li>Высокое разрешение</li>
+          <li>Срок — <strong>1–2 дня</strong></li>
+        </ul>
+        <a href="https://t.me/Mescallito" target="_blank" class="tier-cta tier-cta-outline">Написать</a>
+      </div>
+
+      <div class="tier popular">
+        <div class="tier-badge">Хит продаж</div>
+        <div class="tier-name">Стандартный</div>
+        <div class="tier-sub">Несколько образов — полноценный контент для соцсетей</div>
+        <div class="tier-price">
+          <span class="tier-from">от</span>
+          <span class="tier-amount">35</span>
+          <span class="tier-currency">BYN</span>
+        </div>
+        <ul class="tier-features">
+          <li><strong>10–15</strong> готовых фотографий</li>
+          <li><strong>2–3</strong> образа / стиля</li>
+          <li>Высокое разрешение</li>
+          <li>Срок — <strong>2–3 дня</strong></li>
+          <li>Правки по запросу</li>
+        </ul>
+        <a href="https://t.me/Mescallito" target="_blank" class="tier-cta tier-cta-fill">Написать</a>
+      </div>
+
+      <div class="tier">
+        <div class="tier-spacer"></div>
+        <div class="tier-name">Премиум</div>
+        <div class="tier-sub">Максимум образов без ограничений — для тех, кто хочет всё</div>
+        <div class="tier-price">
+          <span class="tier-from">от</span>
+          <span class="tier-amount">70</span>
+          <span class="tier-currency">BYN</span>
+        </div>
+        <ul class="tier-features">
+          <li><strong>20+</strong> готовых фотографий</li>
+          <li><strong>4–6</strong> образов / стилей</li>
+          <li>Высокое разрешение</li>
+          <li>Приоритет — <strong>1–2 дня</strong></li>
+          <li>Неограниченные правки</li>
+        </ul>
+        <a href="https://t.me/Mescallito" target="_blank" class="tier-cta tier-cta-outline">Написать</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROMOS / SCRATCH CARDS -->
+<section id="promos">
+  <div class="section-header">
+    <span class="section-tag">Акции</span>
+    <h2 class="section-title">Специальные предложения</h2>
+  </div>
+  <div class="scratch-grid">
+
+    <div class="scratch-card">
+      <div class="scratch-info">
+        <span class="scratch-icon">🎁</span>
+        <div class="scratch-title">Первая сессия</div>
+        <p class="scratch-desc">Ещё не пробовали AI-фотосессию? Скидка для новых клиентов — попробуйте без риска.</p>
+        <span class="scratch-badge">−30% на базовый пакет</span>
+      </div>
+      <div class="scratch-zone">
+        <span class="scratch-hint">✦ Сотрите и узнайте промокод</span>
+        <div class="scratch-canvas-wrap" data-code="FIRST30">
+          <div class="scratch-reveal">
+            <span class="scratch-reveal-label">Ваш промокод</span>
+            <span class="scratch-reveal-code">FIRST30</span>
+            <span class="scratch-reveal-sub">Отправьте мне в Telegram</span>
+            <button class="copy-btn" onclick="copyCode(this,'FIRST30')">
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M1 9V2a1 1 0 011-1h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+              Скопировать
+            </button>
+          </div>
+          <canvas class="scratch-canvas"></canvas>
+        </div>
+        <span class="scratch-done-msg">🎉 Промокод открыт! Отправьте его в Telegram при заказе</span>
+      </div>
+    </div>
+
+    <div class="scratch-card">
+      <div class="scratch-info">
+        <span class="scratch-icon">👥</span>
+        <div class="scratch-title">Приведи друга</div>
+        <p class="scratch-desc">Порекомендуйте меня другу — и вы оба получите скидку на следующий заказ.</p>
+        <span class="scratch-badge">−20% для вас и друга</span>
+      </div>
+      <div class="scratch-zone">
+        <span class="scratch-hint">✦ Сотрите и узнайте промокод</span>
+        <div class="scratch-canvas-wrap" data-code="FRIEND20">
+          <div class="scratch-reveal">
+            <span class="scratch-reveal-label">Ваш промокод</span>
+            <span class="scratch-reveal-code">FRIEND20</span>
+            <span class="scratch-reveal-sub">Отправьте мне в Telegram</span>
+            <button class="copy-btn" onclick="copyCode(this,'FRIEND20')">
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M1 9V2a1 1 0 011-1h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+              Скопировать
+            </button>
+          </div>
+          <canvas class="scratch-canvas"></canvas>
+        </div>
+        <span class="scratch-done-msg">🎉 Промокод открыт! Отправьте его в Telegram при заказе</span>
+      </div>
+    </div>
+
+    <div class="scratch-card">
+      <div class="scratch-info">
+        <span class="scratch-icon">📸</span>
+        <div class="scratch-title">Тестовый снимок</div>
+        <p class="scratch-desc">Пришлите фото и получите один готовый снимок бесплатно — до оформления заказа.</p>
+        <span class="scratch-badge">1 фото бесплатно</span>
+      </div>
+      <div class="scratch-zone">
+        <span class="scratch-hint">✦ Сотрите и узнайте промокод</span>
+        <div class="scratch-canvas-wrap" data-code="TESTSHOT">
+          <div class="scratch-reveal">
+            <span class="scratch-reveal-label">Ваш промокод</span>
+            <span class="scratch-reveal-code">TESTSHOT</span>
+            <span class="scratch-reveal-sub">Отправьте мне в Telegram</span>
+            <button class="copy-btn" onclick="copyCode(this,'TESTSHOT')">
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M1 9V2a1 1 0 011-1h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+              Скопировать
+            </button>
+          </div>
+          <canvas class="scratch-canvas"></canvas>
+        </div>
+        <span class="scratch-done-msg">🎉 Промокод открыт! Отправьте его в Telegram при заказе</span>
+      </div>
+    </div>
+
+    <div class="scratch-card">
+      <div class="scratch-info">
+        <span class="scratch-icon">⚡</span>
+        <div class="scratch-title">Горящее предложение</div>
+        <p class="scratch-desc">Первые 5 заказов каждого месяца — по специальной цене. Только для самых быстрых!</p>
+        <span class="scratch-badge">Ограниченное количество</span>
+      </div>
+      <div class="scratch-zone">
+        <span class="scratch-hint">✦ Сотрите и узнайте промокод</span>
+        <div class="scratch-canvas-wrap" data-code="FLASH5">
+          <div class="scratch-reveal">
+            <span class="scratch-reveal-label">Ваш промокод</span>
+            <span class="scratch-reveal-code">FLASH5</span>
+            <span class="scratch-reveal-sub">Отправьте мне в Telegram</span>
+            <button class="copy-btn" onclick="copyCode(this,'FLASH5')">
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M1 9V2a1 1 0 011-1h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+              Скопировать
+            </button>
+          </div>
+          <canvas class="scratch-canvas"></canvas>
+        </div>
+        <span class="scratch-done-msg">🎉 Промокод открыт! Отправьте его в Telegram при заказе</span>
+      </div>
     </div>
 
   </div>
@@ -1115,6 +1520,116 @@
       }
     }, { passive: true });
   })();
+
+  /* ── SCRATCH CARDS ── */
+  function initScratch(wrap) {
+    const canvas = wrap.querySelector('.scratch-canvas');
+    const reveal = wrap.querySelector('.scratch-reveal');
+    const doneMsg = wrap.closest('.scratch-zone').querySelector('.scratch-done-msg');
+    const revealH = reveal.offsetHeight || 80;
+    canvas.width  = wrap.offsetWidth;
+    canvas.height = revealH + (reveal.offsetTop || 0) + 28;
+
+    const ctx = canvas.getContext('2d');
+
+    // Build scratch surface — gradient with noise feel
+    const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    // Silver/coin texture tones
+    grad.addColorStop(0,   '#C8C0B8');
+    grad.addColorStop(0.3, '#E2DAD2');
+    grad.addColorStop(0.6, '#B8B0A8');
+    grad.addColorStop(1,   '#D0C8C0');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Subtle diagonal lines for coin texture
+    ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+    ctx.lineWidth = 1;
+    for (let i = -canvas.height; i < canvas.width + canvas.height; i += 8) {
+      ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i + canvas.height, canvas.height); ctx.stroke();
+    }
+
+    // Scratch label
+    ctx.fillStyle = 'rgba(80,70,60,0.55)';
+    ctx.font = '500 13px DM Sans, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Сотрите монеткой или пальцем', canvas.width / 2, canvas.height / 2 - 8);
+    // coin icon via path (no emoji)
+    ctx.fillStyle = 'rgba(80,70,60,0.3)';
+    ctx.beginPath();
+    ctx.arc(canvas.width / 2, canvas.height / 2 + 20, 13, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+    ctx.font = 'bold 11px DM Sans, sans-serif';
+    ctx.fillText('₽', canvas.width / 2, canvas.height / 2 + 25);
+
+    // Erase mode
+    ctx.globalCompositeOperation = 'destination-out';
+
+    let painting = false;
+    let revealed = false;
+
+    function getPos(e) {
+      const r = canvas.getBoundingClientRect();
+      const src = e.touches ? e.touches[0] : e;
+      return { x: src.clientX - r.left, y: src.clientY - r.top };
+    }
+
+    function scratch(x, y) {
+      ctx.beginPath();
+      ctx.arc(x, y, 28, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    function fullClear() {
+      revealed = true;
+      // Animate remaining silver away
+      let alpha = 1;
+      const fade = setInterval(() => {
+        alpha -= 0.07;
+        if (alpha <= 0) {
+          clearInterval(fade);
+          canvas.style.display = 'none';
+          if (doneMsg) doneMsg.classList.add('visible');
+          return;
+        }
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.globalAlpha = 0.15;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }, 16);
+    }
+
+    function checkReveal() {
+      if (revealed) return;
+      // Sample every 8th pixel for performance
+      const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+      let cleared = 0, total = 0;
+      for (let i = 3; i < data.length; i += 32) { if (data[i] === 0) cleared++; total++; }
+      if (cleared / total > 0.40) fullClear();
+    }
+
+    canvas.addEventListener('mousedown', (e) => { painting = true; const p = getPos(e); scratch(p.x, p.y); });
+    canvas.addEventListener('mousemove', (e) => { if (!painting) return; const p = getPos(e); scratch(p.x, p.y); checkReveal(); });
+    canvas.addEventListener('mouseup',   () => { painting = false; checkReveal(); });
+    canvas.addEventListener('mouseleave',() => { painting = false; });
+
+    canvas.addEventListener('touchstart', (e) => { e.preventDefault(); painting = true; const p = getPos(e); scratch(p.x, p.y); }, { passive: false });
+    canvas.addEventListener('touchmove',  (e) => { e.preventDefault(); if (!painting) return; const p = getPos(e); scratch(p.x, p.y); checkReveal(); }, { passive: false });
+    canvas.addEventListener('touchend',   () => { painting = false; checkReveal(); });
+  }
+
+  function copyCode(btn, code) {
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = '✓ Скопировано!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M1 9V2a1 1 0 011-1h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Скопировать`; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  // Init all scratch cards once images/layout settled
+  window.addEventListener('load', () => {
+    document.querySelectorAll('.scratch-canvas-wrap').forEach(w => initScratch(w));
+  });
 
   /* ── SCROLL REVEAL ── */
   const observer = new IntersectionObserver((entries) => {
