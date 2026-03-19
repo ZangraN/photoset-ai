@@ -570,9 +570,8 @@
     .about-card::after { font-size: 10rem; }
     .upload-hint { margin: 20px 16px 0; padding: 18px; }
     .lightbox-inner { max-width: 92vw; }
-    .lightbox-prev { left: -36px; }
-    .lightbox-next { right: -36px; }
-    .lightbox-nav { width: 36px; height: 36px; }
+    .lightbox-prev, .lightbox-next { display: none; }
+    .lightbox-caption { font-size: 0.75rem; }
   }
   @media (max-width: 380px) {
     .gallery-grid { grid-template-columns: 1fr; }
@@ -951,13 +950,33 @@
     if (e.target === document.getElementById('lightbox')) closeLightbox();
   }
 
-  function lbGoTo(idx) {
-    currentIdx = (idx + cards.length) % cards.length;
-    buildLbContent(currentIdx);
+  function lbGoTo(idx, dir) {
+    const inner = document.querySelector('.lightbox-inner');
+    const slideOut = dir === 1 ? '-60px' : '60px';
+    const slideIn  = dir === 1 ? '60px'  : '-60px';
+
+    inner.style.transition = 'opacity 0.18s ease, transform 0.18s ease';
+    inner.style.opacity = '0';
+    inner.style.transform = `scale(0.96) translateX(${slideOut})`;
+
+    setTimeout(() => {
+      currentIdx = (idx + cards.length) % cards.length;
+      buildLbContent(currentIdx);
+
+      inner.style.transition = 'none';
+      inner.style.transform = `scale(0.96) translateX(${slideIn})`;
+      inner.style.opacity = '0';
+
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        inner.style.transition = 'opacity 0.22s ease, transform 0.22s cubic-bezier(0.22,1,0.36,1)';
+        inner.style.opacity = '1';
+        inner.style.transform = 'scale(1) translateX(0)';
+      }));
+    }, 180);
   }
 
   function lbNav(dir) {
-    lbGoTo(currentIdx + dir);
+    lbGoTo(currentIdx + dir, dir);
   }
 
   document.addEventListener('keydown', (e) => {
@@ -967,6 +986,50 @@
     if (e.key === 'ArrowLeft') lbNav(-1);
     if (e.key === 'ArrowRight') lbNav(1);
   });
+
+  /* ── SWIPE SUPPORT ── */
+  (function() {
+    const lb = document.getElementById('lightbox');
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let isDragging = false;
+    const inner = () => document.querySelector('.lightbox-inner');
+
+    lb.addEventListener('touchstart', (e) => {
+      if (!lb.classList.contains('open')) return;
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      isDragging = true;
+      inner().style.transition = 'none';
+    }, { passive: true });
+
+    lb.addEventListener('touchmove', (e) => {
+      if (!isDragging || !lb.classList.contains('open')) return;
+      const dx = e.touches[0].clientX - touchStartX;
+      const dy = e.touches[0].clientY - touchStartY;
+      if (Math.abs(dx) > Math.abs(dy)) {
+        const clamped = Math.max(-120, Math.min(120, dx));
+        const progress = Math.abs(clamped) / 120;
+        inner().style.transform = `translateX(${clamped}px) scale(${1 - progress * 0.04})`;
+        inner().style.opacity = `${1 - progress * 0.3}`;
+      }
+    }, { passive: true });
+
+    lb.addEventListener('touchend', (e) => {
+      if (!isDragging || !lb.classList.contains('open')) return;
+      isDragging = false;
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      const dy = e.changedTouches[0].clientY - touchStartY;
+
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+        lbNav(dx < 0 ? 1 : -1);
+      } else {
+        inner().style.transition = 'opacity 0.2s ease, transform 0.2s cubic-bezier(0.22,1,0.36,1)';
+        inner().style.transform = 'translateX(0) scale(1)';
+        inner().style.opacity = '1';
+      }
+    }, { passive: true });
+  })();
 
   /* ── SCROLL REVEAL ── */
   const observer = new IntersectionObserver((entries) => {
