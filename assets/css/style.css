@@ -825,7 +825,7 @@ button { border: none; background: transparent; font-family: inherit; padding: 0
 .photo-placeholder p { font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; opacity:0.4; }
 .lightbox { position:fixed; inset:0; z-index:1000; background:rgba(12,11,10,0.92); backdrop-filter:blur(24px); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.3s cubic-bezier(0.22,1,0.36,1); }
 .lightbox.open { opacity:1; pointer-events:all; }
-.lb-inner { position:relative; max-width:min(520px,90vw); width:100%; transform:scale(0.9) translateY(20px); transition:transform 0.35s cubic-bezier(0.22,1,0.36,1); }
+.lb-inner { position:relative; max-width:60vw; width:100%; transform:scale(0.9) translateY(20px); transition:transform 0.35s cubic-bezier(0.22,1,0.36,1); }
 .lightbox.open .lb-inner { transform:scale(1) translateY(0); }
 .lb-img { border-radius:20px; overflow:hidden; box-shadow:0 40px 100px rgba(0,0,0,0.5); max-height:85vh; display:flex; align-items:center; justify-content:center; }
 .lb-img img { width:100%; height:auto; max-height:85vh; object-fit:contain; display:block; }
