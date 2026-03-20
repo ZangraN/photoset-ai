@@ -24,6 +24,10 @@ function parseCSV(text) {
 }
 
 async function fetchPhotosData() {
+  const grid = document.getElementById('catGrid');
+  if (grid && !window.DYNAMIC_DATA) {
+    grid.innerHTML = '<div class="skeleton-item"></div>'.repeat(6);
+  }
   try {
     const response = await fetch(SHEETS_CSV_URL);
     const text = await response.text();

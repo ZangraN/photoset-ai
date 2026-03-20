@@ -858,3 +858,22 @@ button { border: none; background: transparent; font-family: inherit; padding: 0
 @media(prefers-color-scheme:dark){
   .photo-placeholder{background:linear-gradient(145deg,#1e1c1a,#171614);}
 }
+
+/* ── SKELETON LOADER ── */
+.skeleton-row { columns:3; column-gap:14px; width:100%; }
+.skeleton-item { 
+  break-inside:avoid; border-radius:16px; margin-bottom:14px;
+  height:240px; background:var(--glass-bg); 
+  border:1px solid var(--glass-border); position:relative; overflow:hidden;
+}
+.skeleton-item::after {
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+  transform:translateX(-100%);
+  animation:shimmer 1.5s infinite;
+}
+@keyframes shimmer { 100% { transform:translateX(100%); } }
+
+@media(max-width:900px){ .skeleton-row { columns:2; } }
+@media(max-width:420px){ .skeleton-row { columns:1; } }
+
