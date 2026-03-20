@@ -1,558 +1,609 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PhotosetAI — AI Фотосессии от Павла</title>
-<meta name="color-scheme" content="light dark">
-<link rel="icon" href="favicon.ico">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=4">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhotosetAI — AI Фотосессии от Павла</title>
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css?v=4">
 </head>
+
 <body>
 
-<div class="blob-wrap">
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-  <div class="blob blob-3"></div>
-  <div class="blob blob-4"></div>
-</div>
-
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">Photoset<span>AI</span></div>
-  <div class="nav-links">
-    <a href="#portfolio">Работы</a>
-    <a href="#usecases">Применение</a>
-    <a href="#pricing">Цены</a>
-    <a href="#promos">Акции</a>
-    <a href="#about">Обо мне</a>
-    <a href="#contact">Контакты</a>
+  <div class="blob-wrap">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
   </div>
-  <button type="button" class="nav-mobile-btn" id="menuBtn" onclick="toggleMenu()" aria-label="Меню">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-<!-- Mobile dropdown -->
-<div id="mobileMenu" style="
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Photoset<span>AI</span></div>
+    <div class="nav-links">
+      <a href="#portfolio">Работы</a>
+      <a href="#usecases">Применение</a>
+      <a href="#pricing">Цены</a>
+      <a href="#promos">Акции</a>
+      <a href="#about">Обо мне</a>
+      <a href="#contact">Контакты</a>
+    </div>
+    <button type="button" class="nav-mobile-btn" id="menuBtn" onclick="toggleMenu()" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <!-- Mobile dropdown -->
+  <div id="mobileMenu" style="
   display:none; position:fixed; top:65px; left:0; right:0; z-index:99;
   background:rgba(250,250,248,0.96); backdrop-filter:blur(20px);
   border-bottom:1px solid rgba(0,0,0,0.06); padding:20px 24px 28px;
   flex-direction:column; gap:0;
 ">
-  <a href="#portfolio" onclick="toggleMenu()" style="display:block;padding:14px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:1rem;color:var(--text);text-decoration:none;">Работы</a>
-  <a href="#usecases" onclick="toggleMenu()" style="display:block;padding:14px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:1rem;color:var(--text);text-decoration:none;">Применение</a>
-  <a href="#pricing" onclick="toggleMenu()" style="display:block;padding:14px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:1rem;color:var(--text);text-decoration:none;">Цены</a>
-  <a href="#promos" onclick="toggleMenu()" style="display:block;padding:14px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:1rem;color:var(--text);text-decoration:none;">Акции</a>
-  <a href="#about" onclick="toggleMenu()" style="display:block;padding:14px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:1rem;color:var(--text);text-decoration:none;">Обо мне</a>
-  <a href="#contact" onclick="toggleMenu()" style="display:block;padding:14px 0;font-size:1rem;color:var(--accent);text-decoration:none;font-weight:500;">Контакты</a>
-</div>
-
-<main>
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-label">PhotosetAI — фотосессии нового поколения</div>
-  <h1 class="hero-title fade-up d1">
-    Ваш образ —<br><em>идеальный,</em><br><span class="accent2">без студии</span>
-  </h1>
-  <p class="hero-sub fade-up d2">
-    Профессиональные фотосессии с помощью искусственного интеллекта. Реалистичные портреты, деловые образы и творческие концепции — быстро, доступно и без съёмочного процесса.
-  </p>
-  <div class="hero-cta fade-up d3">
-    <a href="#portfolio" class="btn-primary">
-      Посмотреть работы
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-    <a href="#contact" class="btn-secondary">Обсудить проект</a>
-  </div>
-  <div class="hero-scroll">
-    <span>Прокрутите</span>
-    <div class="scroll-line"></div>
-  </div>
-</section>
-
-<!-- PORTFOLIO / CATEGORIES -->
-<section id="portfolio">
-  <div class="section-header">
-    <span class="section-tag">Портфолио</span>
-    <h2 class="section-title">Категории</h2>
-    <div class="gender-toggle" id="genderToggle">
-      <div class="gender-slider" id="genderSlider"></div>
-      <button type="button" class="gender-tab active" data-gender="female" onclick="switchGender('female')">Женские</button>
-      <button type="button" class="gender-tab" data-gender="male" onclick="switchGender('male')">Мужские</button>
-    </div>
+    <a href="#portfolio" onclick="toggleMenu()"
+      style="display:block;padding:14px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:1rem;color:var(--text);text-decoration:none;">Работы</a>
+    <a href="#usecases" onclick="toggleMenu()"
+      style="display:block;padding:14px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:1rem;color:var(--text);text-decoration:none;">Применение</a>
+    <a href="#pricing" onclick="toggleMenu()"
+      style="display:block;padding:14px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:1rem;color:var(--text);text-decoration:none;">Цены</a>
+    <a href="#promos" onclick="toggleMenu()"
+      style="display:block;padding:14px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:1rem;color:var(--text);text-decoration:none;">Акции</a>
+    <a href="#about" onclick="toggleMenu()"
+      style="display:block;padding:14px 0;border-bottom:1px solid rgba(0,0,0,0.06);font-size:1rem;color:var(--text);text-decoration:none;">Обо
+      мне</a>
+    <a href="#contact" onclick="toggleMenu()"
+      style="display:block;padding:14px 0;font-size:1rem;color:var(--accent);text-decoration:none;font-weight:500;">Контакты</a>
   </div>
 
-  <div class="gallery-grid">
-
-    <!-- FEMALE PANEL — заглушки, замените src на женские фото -->
-    <div class="gender-panel active" id="female-panel" style="display:contents;">
-
-      <a href="category-business.html" class="cat-card">
-        <div class="cat-placeholder"><svg width="36" height="36" viewBox="0 0 40 40" fill="none"><rect x="4" y="8" width="32" height="24" rx="4" stroke="currentColor" stroke-width="1.5"/><circle cx="20" cy="20" r="5" stroke="currentColor" stroke-width="1.5"/></svg></div>
-        <div class="cat-card-label">
-          <span class="cat-card-name">Бизнес-портрет</span>
-          <span class="cat-card-cta">Смотреть галерею →</span>
-        </div>
-      </a>
-
-      <a href="category-lifestyle.html" class="cat-card">
-        <div class="cat-placeholder"><svg width="36" height="36" viewBox="0 0 40 40" fill="none"><rect x="4" y="8" width="32" height="24" rx="4" stroke="currentColor" stroke-width="1.5"/><circle cx="20" cy="20" r="5" stroke="currentColor" stroke-width="1.5"/></svg></div>
-        <div class="cat-card-label">
-          <span class="cat-card-name">Lifestyle</span>
-          <span class="cat-card-cta">Смотреть галерею →</span>
-        </div>
-      </a>
-
-      <a href="category-fashion.html" class="cat-card">
-        <div class="cat-placeholder"><svg width="36" height="36" viewBox="0 0 40 40" fill="none"><rect x="4" y="8" width="32" height="24" rx="4" stroke="currentColor" stroke-width="1.5"/><circle cx="20" cy="20" r="5" stroke="currentColor" stroke-width="1.5"/></svg></div>
-        <div class="cat-card-label">
-          <span class="cat-card-name">Fashion</span>
-          <span class="cat-card-cta">Смотреть галерею →</span>
-        </div>
-      </a>
-
-      <a href="category-travel.html" class="cat-card">
-        <div class="cat-placeholder"><svg width="36" height="36" viewBox="0 0 40 40" fill="none"><rect x="4" y="8" width="32" height="24" rx="4" stroke="currentColor" stroke-width="1.5"/><circle cx="20" cy="20" r="5" stroke="currentColor" stroke-width="1.5"/></svg></div>
-        <div class="cat-card-label">
-          <span class="cat-card-name">Путешествия</span>
-          <span class="cat-card-cta">Смотреть галерею →</span>
-        </div>
-      </a>
-
-      <a href="category-art.html" class="cat-card">
-        <div class="cat-placeholder"><svg width="36" height="36" viewBox="0 0 40 40" fill="none"><rect x="4" y="8" width="32" height="24" rx="4" stroke="currentColor" stroke-width="1.5"/><circle cx="20" cy="20" r="5" stroke="currentColor" stroke-width="1.5"/></svg></div>
-        <div class="cat-card-label">
-          <span class="cat-card-name">Арт-проект</span>
-          <span class="cat-card-cta">Смотреть галерею →</span>
-        </div>
-      </a>
-
-      <a href="category-sport.html" class="cat-card">
-        <div class="cat-placeholder"><svg width="36" height="36" viewBox="0 0 40 40" fill="none"><rect x="4" y="8" width="32" height="24" rx="4" stroke="currentColor" stroke-width="1.5"/><circle cx="20" cy="20" r="5" stroke="currentColor" stroke-width="1.5"/></svg></div>
-        <div class="cat-card-label">
-          <span class="cat-card-name">Спорт / Фитнес</span>
-          <span class="cat-card-cta">Смотреть галерею →</span>
-        </div>
-      </a>
-
-    </div>
-
-    <!-- MALE PANEL — реальные фото -->
-    <div class="gender-panel" id="male-panel" style="display:none;">
-
-      <a href="category-business-male.html" class="cat-card">
-        <img src="https://i.postimg.cc/15bB5Sd8/photo-2026-03-19-12-44-44.jpg" alt="Бизнес-портрет">
-        <div class="cat-card-label">
-          <span class="cat-card-name">Бизнес-портрет</span>
-          <span class="cat-card-cta">Смотреть галерею →</span>
-        </div>
-      </a>
-
-      <a href="category-lifestyle-male.html" class="cat-card">
-        <img src="https://i.postimg.cc/xCqNzJJT/photo-2026-03-19-12-44-52.jpg" alt="Lifestyle">
-        <div class="cat-card-label">
-          <span class="cat-card-name">Lifestyle</span>
-          <span class="cat-card-cta">Смотреть галерею →</span>
-        </div>
-      </a>
-
-      <a href="category-fashion-male.html" class="cat-card">
-        <img src="https://i.postimg.cc/mrLbPvcq/photo-2026-03-19-12-44-25.jpg" alt="Fashion">
-        <div class="cat-card-label">
-          <span class="cat-card-name">Fashion</span>
-          <span class="cat-card-cta">Смотреть галерею →</span>
-        </div>
-      </a>
-
-      <a href="category-travel-male.html" class="cat-card">
-        <img src="https://i.postimg.cc/vTgnpgbv/photo-2026-03-19-12-44-50.jpg" alt="Путешествия">
-        <div class="cat-card-label">
-          <span class="cat-card-name">Путешествия</span>
-          <span class="cat-card-cta">Смотреть галерею →</span>
-        </div>
-      </a>
-
-      <a href="category-art-male.html" class="cat-card">
-        <img src="https://i.postimg.cc/XYhRbtfJ/photo-2026-03-19-12-44-30.jpg" alt="Арт-проект">
-        <div class="cat-card-label">
-          <span class="cat-card-name">Арт-проект</span>
-          <span class="cat-card-cta">Смотреть галерею →</span>
-        </div>
-      </a>
-
-      <a href="category-sport-male.html" class="cat-card">
-        <img src="https://i.postimg.cc/hj0ZfYdm/photo-2026-03-19-12-44-32.jpg" alt="Спорт">
-        <div class="cat-card-label">
-          <span class="cat-card-name">Спорт / Фитнес</span>
-          <span class="cat-card-cta">Смотреть галерею →</span>
-        </div>
-      </a>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- USE CASES -->
-<section id="usecases">
-  <div class="section-header">
-    <span class="section-tag">Применение</span>
-    <h2 class="section-title">Где это нужно</h2>
-  </div>
-  <div class="cases-grid">
-
-    <div class="case-card">
-      <div class="case-icon">💼</div>
-      <div class="case-name">Деловые профили и LinkedIn</div>
-      <p class="case-desc">Профессиональный портрет в деловой среде без похода в студию. Идеально для LinkedIn, корпоративного сайта или email-подписи.</p>
-    </div>
-
-    <div class="case-card">
-      <div class="case-icon">📱</div>
-      <div class="case-name">Социальные сети и блоги</div>
-      <p class="case-desc">Контент для Instagram, Telegram и TikTok. Разнообразные образы, локации и стили — для единого визуального стиля аккаунта.</p>
-    </div>
-
-    <div class="case-card">
-      <div class="case-icon">🎯</div>
-      <div class="case-name">Личный бренд</div>
-      <p class="case-desc">Серия имиджевых фото для экспертов, коучей, фрилансеров и предпринимателей. Создайте узнаваемый образ без многочасовых съёмок.</p>
-    </div>
-
-    <div class="case-card">
-      <div class="case-icon">🛍️</div>
-      <div class="case-name">Маркетинг и реклама</div>
-      <p class="case-desc">Фотографии для лендингов, рекламных баннеров, email-рассылок и презентаций. Быстрое создание визуалов для маркетинговых кампаний.</p>
-    </div>
-
-    <div class="case-card">
-      <div class="case-icon">👗</div>
-      <div class="case-name">Fashion и творческие проекты</div>
-      <p class="case-desc">Реализация смелых идей без затрат на студию, стилиста и реквизит. Любой образ, любая локация — от нью-йоркских крыш до японских садов.</p>
-    </div>
-
-    <div class="case-card">
-      <div class="case-icon">📄</div>
-      <div class="case-name">Документы и резюме</div>
-      <p class="case-desc">Строгое, актуальное фото для загранпаспорта, CV, анкет и официальных профилей. Без очередей и скучных фотоателье.</p>
-    </div>
-
-  </div>
-</section>
-
-<!-- PRICING -->
-<section id="pricing">
-  <div class="section-header">
-    <span class="section-tag">Стоимость</span>
-    <h2 class="section-title">Тарифы</h2>
-  </div>
-  <div class="pricing-wrap">
-    <div class="pricing-row">
-
-      <div class="tier">
-        <div class="tier-spacer"></div>
-        <div class="tier-name">Базовый</div>
-        <div class="tier-sub">Для первого знакомства — один образ, быстрый результат</div>
-        <div class="tier-price">
-          <span class="tier-from">от</span>
-          <span class="tier-amount">15</span>
-          <span class="tier-currency">BYN</span>
-        </div>
-        <ul class="tier-features">
-          <li><strong>5–8</strong> готовых фотографий</li>
-          <li><strong>1</strong> образ / стиль</li>
-          <li>Высокое разрешение</li>
-          <li>Срок — <strong>1–2 дня</strong></li>
-        </ul>
-        <a href="https://t.me/Mescallito" target="_blank" class="tier-cta tier-cta-outline">Написать</a>
-      </div>
-
-      <div class="tier popular">
-        <div class="tier-badge">Хит продаж</div>
-        <div class="tier-name">Стандартный</div>
-        <div class="tier-sub">Несколько образов — полноценный контент для соцсетей</div>
-        <div class="tier-price">
-          <span class="tier-from">от</span>
-          <span class="tier-amount">35</span>
-          <span class="tier-currency">BYN</span>
-        </div>
-        <ul class="tier-features">
-          <li><strong>10–15</strong> готовых фотографий</li>
-          <li><strong>2–3</strong> образа / стиля</li>
-          <li>Высокое разрешение</li>
-          <li>Срок — <strong>2–3 дня</strong></li>
-          <li>Правки по запросу</li>
-        </ul>
-        <a href="https://t.me/Mescallito" target="_blank" class="tier-cta tier-cta-fill">Написать</a>
-      </div>
-
-      <div class="tier">
-        <div class="tier-spacer"></div>
-        <div class="tier-name">Премиум</div>
-        <div class="tier-sub">Максимум образов без ограничений — для тех, кто хочет всё</div>
-        <div class="tier-price">
-          <span class="tier-from">от</span>
-          <span class="tier-amount">70</span>
-          <span class="tier-currency">BYN</span>
-        </div>
-        <ul class="tier-features">
-          <li><strong>20+</strong> готовых фотографий</li>
-          <li><strong>4–6</strong> образов / стилей</li>
-          <li>Высокое разрешение</li>
-          <li>Приоритет — <strong>1–2 дня</strong></li>
-          <li>Неограниченные правки</li>
-        </ul>
-        <a href="https://t.me/Mescallito" target="_blank" class="tier-cta tier-cta-outline">Написать</a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- PROMOS / SCRATCH CARDS -->
-<section id="promos">
-  <div class="section-header">
-    <span class="section-tag">Акции</span>
-    <h2 class="section-title">Специальные предложения</h2>
-  </div>
-  <div class="scratch-grid">
-
-    <div class="scratch-card">
-      <div class="scratch-info">
-        <span class="scratch-icon">🎁</span>
-        <div class="scratch-title">Первая сессия</div>
-        <p class="scratch-desc">Ещё не пробовали AI-фотосессию? Скидка для новых клиентов — попробуйте без риска.</p>
-        <span class="scratch-badge">−30% на базовый пакет</span>
-      </div>
-      <div class="scratch-zone">
-        <span class="scratch-hint">✦ Сотрите и узнайте промокод</span>
-        <div class="scratch-canvas-wrap" data-code="FIRST30">
-          <div class="scratch-reveal">
-            <span class="scratch-reveal-label">Ваш промокод</span>
-            <span class="scratch-reveal-code">FIRST30</span>
-            <span class="scratch-reveal-sub">Отправьте мне в Telegram</span>
-            <button class="copy-btn" onclick="copyCode(this,'FIRST30')">
-              <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M1 9V2a1 1 0 011-1h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-              Скопировать
-            </button>
-          </div>
-          <canvas class="scratch-canvas"></canvas>
-        </div>
-        <span class="scratch-done-msg">🎉 Промокод открыт! Отправьте его в Telegram при заказе</span>
-      </div>
-    </div>
-
-    <div class="scratch-card">
-      <div class="scratch-info">
-        <span class="scratch-icon">👥</span>
-        <div class="scratch-title">Приведи друга</div>
-        <p class="scratch-desc">Порекомендуйте меня другу — и вы оба получите скидку на следующий заказ.</p>
-        <span class="scratch-badge">−20% для вас и друга</span>
-      </div>
-      <div class="scratch-zone">
-        <span class="scratch-hint">✦ Сотрите и узнайте промокод</span>
-        <div class="scratch-canvas-wrap" data-code="FRIEND20">
-          <div class="scratch-reveal">
-            <span class="scratch-reveal-label">Ваш промокод</span>
-            <span class="scratch-reveal-code">FRIEND20</span>
-            <span class="scratch-reveal-sub">Отправьте мне в Telegram</span>
-            <button class="copy-btn" onclick="copyCode(this,'FRIEND20')">
-              <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M1 9V2a1 1 0 011-1h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-              Скопировать
-            </button>
-          </div>
-          <canvas class="scratch-canvas"></canvas>
-        </div>
-        <span class="scratch-done-msg">🎉 Промокод открыт! Отправьте его в Telegram при заказе</span>
-      </div>
-    </div>
-
-    <div class="scratch-card">
-      <div class="scratch-info">
-        <span class="scratch-icon">📸</span>
-        <div class="scratch-title">Тестовый снимок</div>
-        <p class="scratch-desc">Пришлите фото и получите один готовый снимок бесплатно — до оформления заказа.</p>
-        <span class="scratch-badge">1 фото бесплатно</span>
-      </div>
-      <div class="scratch-zone">
-        <span class="scratch-hint">✦ Сотрите и узнайте промокод</span>
-        <div class="scratch-canvas-wrap" data-code="TESTSHOT">
-          <div class="scratch-reveal">
-            <span class="scratch-reveal-label">Ваш промокод</span>
-            <span class="scratch-reveal-code">TESTSHOT</span>
-            <span class="scratch-reveal-sub">Отправьте мне в Telegram</span>
-            <button class="copy-btn" onclick="copyCode(this,'TESTSHOT')">
-              <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M1 9V2a1 1 0 011-1h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-              Скопировать
-            </button>
-          </div>
-          <canvas class="scratch-canvas"></canvas>
-        </div>
-        <span class="scratch-done-msg">🎉 Промокод открыт! Отправьте его в Telegram при заказе</span>
-      </div>
-    </div>
-
-    <div class="scratch-card">
-      <div class="scratch-info">
-        <span class="scratch-icon">⚡</span>
-        <div class="scratch-title">Горящее предложение</div>
-        <p class="scratch-desc">Первые 5 заказов каждого месяца — по специальной цене. Только для самых быстрых!</p>
-        <span class="scratch-badge">Ограниченное количество</span>
-      </div>
-      <div class="scratch-zone">
-        <span class="scratch-hint">✦ Сотрите и узнайте промокод</span>
-        <div class="scratch-canvas-wrap" data-code="FLASH5">
-          <div class="scratch-reveal">
-            <span class="scratch-reveal-label">Ваш промокод</span>
-            <span class="scratch-reveal-code">FLASH5</span>
-            <span class="scratch-reveal-sub">Отправьте мне в Telegram</span>
-            <button class="copy-btn" onclick="copyCode(this,'FLASH5')">
-              <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M1 9V2a1 1 0 011-1h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-              Скопировать
-            </button>
-          </div>
-          <canvas class="scratch-canvas"></canvas>
-        </div>
-        <span class="scratch-done-msg">🎉 Промокод открыт! Отправьте его в Telegram при заказе</span>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- PROCESS -->
-<section id="process">
-  <div class="section-header">
-    <span class="section-tag">Процесс</span>
-    <h2 class="section-title">Как это работает</h2>
-  </div>
-  <div class="process-inner">
-    <div class="process-text">
-      <p>
-        <strong>Никакой студии, никаких лишних расходов.</strong> Вы получаете профессиональный результат, не выходя из дома — всё, что нужно, это несколько ваших фотографий и ваше пожелание.
+  <main>
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-label">PhotosetAI — фотосессии нового поколения</div>
+      <h1 class="hero-title fade-up d1">
+        Ваш образ —<br><em>идеальный,</em><br><span class="accent2">без студии</span>
+      </h1>
+      <p class="hero-sub fade-up d2">
+        Профессиональные фотосессии с помощью искусственного интеллекта. Реалистичные портреты, деловые образы и
+        творческие концепции — быстро, доступно и без съёмочного процесса.
       </p>
-      <p>
-        Я использую современные AI-инструменты и собственную экспертизу для создания образов, которые выглядят естественно и профессионально. Каждая работа — это авторский подход, а не шаблон.
-      </p>
-      <a href="#contact" class="btn-primary" style="display:inline-flex;width:fit-content">
-        Начать проект
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
-    <div class="steps">
-      <div class="step">
-        <span class="step-num">01</span>
-        <div class="step-content">
-          <h4>Пришлите фото и ТЗ</h4>
-          <p>Несколько ваших фотографий хорошего качества и описание желаемого результата — стиль, настроение, цель.</p>
-        </div>
-      </div>
-      <div class="step">
-        <span class="step-num">02</span>
-        <div class="step-content">
-          <h4>Обсуждаем концепцию</h4>
-          <p>Вместе уточняем детали: образ, фон, одежда, освещение. Я предложу варианты, вы выберете направление.</p>
-        </div>
-      </div>
-      <div class="step">
-        <span class="step-num">03</span>
-        <div class="step-content">
-          <h4>Создаю фотосессию</h4>
-          <p>Генерация и ручная обработка. Работаю до тех пор, пока результат не будет вас устраивать.</p>
-        </div>
-      </div>
-      <div class="step">
-        <span class="step-num">04</span>
-        <div class="step-content">
-          <h4>Получаете готовые фото</h4>
-          <p>Финальные изображения в высоком разрешении, готовые к публикации или печати.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="section-header">
-    <span class="section-tag">Обо мне</span>
-    <h2 class="section-title">Кто за этим стоит</h2>
-  </div>
-  <div class="about-inner">
-    <div class="about-visual">
-      <div class="about-card">
-        <div class="about-name">Павел<br><span>Дядюк</span></div>
-        <div class="about-role">PhotosetAI · AI-фотограф · Визуальный дизайнер</div>
-        <div class="about-stats">
-          <div>
-            <div class="stat-val">50+</div>
-            <div class="stat-label">довольных клиентов</div>
-          </div>
-          <div>
-            <div class="stat-val">200+</div>
-            <div class="stat-label">созданных образов</div>
-          </div>
-          <div>
-            <div class="stat-val">1</div>
-            <div class="stat-label">день — средний срок</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="about-text">
-      <p>
-        Привет! Я Павел — основатель студии <strong>PhotosetAI</strong>. Занимаюсь созданием <strong>AI-фотосессий</strong>, которые выглядят как настоящие студийные снимки. На стыке технологий и эстетики я помогаю людям и брендам получать качественный визуальный контент.
-      </p>
-      <p>
-        Каждый проект — это <strong>индивидуальный подход</strong>: я не использую шаблоны и не гонюсь за количеством. Важно, чтобы на итоговых фото вы выглядели так, как хотите выглядеть — органично и убедительно.
-      </p>
-      <p>
-        Работаю быстро, на связи в Telegram, всегда отвечаю на вопросы. Давайте создадим что-то классное вместе.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="section-header">
-    <span class="section-tag">Связь</span>
-    <h2 class="section-title">Напишите мне</h2>
-  </div>
-  <div class="contact-inner">
-    <div>
-      <p class="contact-tagline">Готовы создать <em>ваш идеальный</em> образ?</p>
-      <p class="contact-note">Расскажите о вашем проекте — отвечу в течение нескольких часов. Первая консультация бесплатна.</p>
-    </div>
-    <div class="contact-cards">
-
-      <a href="https://t.me/Mescallito" class="contact-card" target="_blank">
-        <div class="contact-icon icon-tg">
-          <svg width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1.5 10.5L24 1.5L17 20.5L11 13.5L1.5 10.5Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
-            <path d="M11 13.5L15.5 9.5" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+      <div class="hero-cta fade-up d3">
+        <a href="#portfolio" class="btn-primary">
+          Посмотреть работы
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
           </svg>
+        </a>
+        <a href="#contact" class="btn-secondary">Обсудить проект</a>
+      </div>
+      <div class="hero-scroll">
+        <span>Прокрутите</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO / CATEGORIES -->
+    <section id="portfolio">
+      <div class="section-header">
+        <span class="section-tag">Портфолио</span>
+        <h2 class="section-title">Категории</h2>
+        <div class="gender-toggle" id="genderToggle">
+          <div class="gender-slider" id="genderSlider"></div>
+          <button type="button" class="gender-tab active" data-gender="female"
+            onclick="switchGender('female')">Женские</button>
+          <button type="button" class="gender-tab" data-gender="male" onclick="switchGender('male')">Мужские</button>
         </div>
-        <div class="contact-info">
-          <div class="contact-label">Telegram</div>
-          <div class="contact-value">@Mescallito</div>
+      </div>
+
+      <div class="gallery-grid">
+
+        <!-- FEMALE PANEL — заглушки, замените src на женские фото -->
+        <div class="gender-panel active" id="female-panel" style="display:contents;">
+
+          <a href="category-business.html" class="cat-card">
+            <img src="https://i.postimg.cc/CLK9qm11/Woman-pitching-project-202603201323.jpg" alt="Бизнес-портрет">
+            <div class="cat-card-label">
+              <span class="cat-card-name">Бизнес-портрет</span>
+              <span class="cat-card-cta">Смотреть галерею →</span>
+            </div>
+          </a>
+
+          <a href="category-lifestyle.html" class="cat-card">
+            <img src="https://i.postimg.cc/kGjJyGKw/Woman-smelling-flowers-202603201331.jpg" alt="Lifestyle">
+            <div class="cat-card-label">
+              <span class="cat-card-name">Lifestyle</span>
+              <span class="cat-card-cta">Смотреть галерею →</span>
+            </div>
+          </a>
+
+          <a href="category-fashion.html" class="cat-card">
+            <img src="https://i.postimg.cc/CKsPRqjT/Woman-leaning-against-202603201300.jpg" alt="Fashion">
+            <div class="cat-card-label">
+              <span class="cat-card-name">Fashion</span>
+              <span class="cat-card-cta">Смотреть галерею →</span>
+            </div>
+          </a>
+
+          <a href="category-travel.html" class="cat-card">
+            <img src="https://i.postimg.cc/3RY0Sy4L/Woman-touching-red-202603201340.jpg" alt="Путешествия">
+            <div class="cat-card-label">
+              <span class="cat-card-name">Путешествия</span>
+              <span class="cat-card-cta">Смотреть галерею →</span>
+            </div>
+          </a>
+
+          <a href="category-art.html" class="cat-card">
+            <img src="https://i.postimg.cc/8khNkyYj/Woman-scratching-reptilian-202603201346.jpg" alt="Арт-проект">
+            <div class="cat-card-label">
+              <span class="cat-card-name">Арт-проект</span>
+              <span class="cat-card-cta">Смотреть галерею →</span>
+            </div>
+          </a>
+
+          <a href="category-sport.html" class="cat-card">
+            <img src="https://i.postimg.cc/Qtz9XfY0/Woman-jogging-city-202603201353.jpg" alt="Спорт / Фитнес">
+            <div class="cat-card-label">
+              <span class="cat-card-name">Спорт / Фитнес</span>
+              <span class="cat-card-cta">Смотреть галерею →</span>
+            </div>
+          </a>
+
         </div>
-        <svg class="contact-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 15L15 5M15 5H7M15 5v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
 
-    </div>
-  </div>
-</section>
+        <!-- MALE PANEL — реальные фото -->
+        <div class="gender-panel" id="male-panel" style="display:none;">
 
-</main>
-<!-- FOOTER -->
-<footer>
-  © 2026 PhotosetAI · Павел &nbsp;·&nbsp; Все права защищены
-</footer>
+          <a href="category-business-male.html" class="cat-card">
+            <img src="https://i.postimg.cc/15bB5Sd8/photo-2026-03-19-12-44-44.jpg" alt="Бизнес-портрет">
+            <div class="cat-card-label">
+              <span class="cat-card-name">Бизнес-портрет</span>
+              <span class="cat-card-cta">Смотреть галерею →</span>
+            </div>
+          </a>
 
-<!-- Scroll reveal -->
-<script src="assets/js/main.js"></script>
+          <a href="category-lifestyle-male.html" class="cat-card">
+            <img src="https://i.postimg.cc/xCqNzJJT/photo-2026-03-19-12-44-52.jpg" alt="Lifestyle">
+            <div class="cat-card-label">
+              <span class="cat-card-name">Lifestyle</span>
+              <span class="cat-card-cta">Смотреть галерею →</span>
+            </div>
+          </a>
+
+          <a href="category-fashion-male.html" class="cat-card">
+            <img src="https://i.postimg.cc/mrLbPvcq/photo-2026-03-19-12-44-25.jpg" alt="Fashion">
+            <div class="cat-card-label">
+              <span class="cat-card-name">Fashion</span>
+              <span class="cat-card-cta">Смотреть галерею →</span>
+            </div>
+          </a>
+
+          <a href="category-travel-male.html" class="cat-card">
+            <img src="https://i.postimg.cc/vTgnpgbv/photo-2026-03-19-12-44-50.jpg" alt="Путешествия">
+            <div class="cat-card-label">
+              <span class="cat-card-name">Путешествия</span>
+              <span class="cat-card-cta">Смотреть галерею →</span>
+            </div>
+          </a>
+
+          <a href="category-art-male.html" class="cat-card">
+            <img src="https://i.postimg.cc/XYhRbtfJ/photo-2026-03-19-12-44-30.jpg" alt="Арт-проект">
+            <div class="cat-card-label">
+              <span class="cat-card-name">Арт-проект</span>
+              <span class="cat-card-cta">Смотреть галерею →</span>
+            </div>
+          </a>
+
+          <a href="category-sport-male.html" class="cat-card">
+            <img src="https://i.postimg.cc/hj0ZfYdm/photo-2026-03-19-12-44-32.jpg" alt="Спорт">
+            <div class="cat-card-label">
+              <span class="cat-card-name">Спорт / Фитнес</span>
+              <span class="cat-card-cta">Смотреть галерею →</span>
+            </div>
+          </a>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- USE CASES -->
+    <section id="usecases">
+      <div class="section-header">
+        <span class="section-tag">Применение</span>
+        <h2 class="section-title">Где это нужно</h2>
+      </div>
+      <div class="cases-grid">
+
+        <div class="case-card">
+          <div class="case-icon">💼</div>
+          <div class="case-name">Деловые профили и LinkedIn</div>
+          <p class="case-desc">Профессиональный портрет в деловой среде без похода в студию. Идеально для LinkedIn,
+            корпоративного сайта или email-подписи.</p>
+        </div>
+
+        <div class="case-card">
+          <div class="case-icon">📱</div>
+          <div class="case-name">Социальные сети и блоги</div>
+          <p class="case-desc">Контент для Instagram, Telegram и TikTok. Разнообразные образы, локации и стили — для
+            единого визуального стиля аккаунта.</p>
+        </div>
+
+        <div class="case-card">
+          <div class="case-icon">🎯</div>
+          <div class="case-name">Личный бренд</div>
+          <p class="case-desc">Серия имиджевых фото для экспертов, коучей, фрилансеров и предпринимателей. Создайте
+            узнаваемый образ без многочасовых съёмок.</p>
+        </div>
+
+        <div class="case-card">
+          <div class="case-icon">🛍️</div>
+          <div class="case-name">Маркетинг и реклама</div>
+          <p class="case-desc">Фотографии для лендингов, рекламных баннеров, email-рассылок и презентаций. Быстрое
+            создание визуалов для маркетинговых кампаний.</p>
+        </div>
+
+        <div class="case-card">
+          <div class="case-icon">👗</div>
+          <div class="case-name">Fashion и творческие проекты</div>
+          <p class="case-desc">Реализация смелых идей без затрат на студию, стилиста и реквизит. Любой образ, любая
+            локация — от нью-йоркских крыш до японских садов.</p>
+        </div>
+
+        <div class="case-card">
+          <div class="case-icon">📄</div>
+          <div class="case-name">Документы и резюме</div>
+          <p class="case-desc">Строгое, актуальное фото для загранпаспорта, CV, анкет и официальных профилей. Без
+            очередей и скучных фотоателье.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing">
+      <div class="section-header">
+        <span class="section-tag">Стоимость</span>
+        <h2 class="section-title">Тарифы</h2>
+      </div>
+      <div class="pricing-wrap">
+        <div class="pricing-row">
+
+          <div class="tier">
+            <div class="tier-spacer"></div>
+            <div class="tier-name">Базовый</div>
+            <div class="tier-sub">Для первого знакомства — один образ, быстрый результат</div>
+            <div class="tier-price">
+              <span class="tier-from">от</span>
+              <span class="tier-amount">15</span>
+              <span class="tier-currency">BYN</span>
+            </div>
+            <ul class="tier-features">
+              <li><strong>5–8</strong> готовых фотографий</li>
+              <li><strong>1</strong> образ / стиль</li>
+              <li>Высокое разрешение</li>
+              <li>Срок — <strong>1–2 дня</strong></li>
+            </ul>
+            <a href="https://t.me/Mescallito" target="_blank" class="tier-cta tier-cta-outline">Написать</a>
+          </div>
+
+          <div class="tier popular">
+            <div class="tier-badge">Хит продаж</div>
+            <div class="tier-name">Стандартный</div>
+            <div class="tier-sub">Несколько образов — полноценный контент для соцсетей</div>
+            <div class="tier-price">
+              <span class="tier-from">от</span>
+              <span class="tier-amount">35</span>
+              <span class="tier-currency">BYN</span>
+            </div>
+            <ul class="tier-features">
+              <li><strong>10–15</strong> готовых фотографий</li>
+              <li><strong>2–3</strong> образа / стиля</li>
+              <li>Высокое разрешение</li>
+              <li>Срок — <strong>2–3 дня</strong></li>
+              <li>Правки по запросу</li>
+            </ul>
+            <a href="https://t.me/Mescallito" target="_blank" class="tier-cta tier-cta-fill">Написать</a>
+          </div>
+
+          <div class="tier">
+            <div class="tier-spacer"></div>
+            <div class="tier-name">Премиум</div>
+            <div class="tier-sub">Максимум образов без ограничений — для тех, кто хочет всё</div>
+            <div class="tier-price">
+              <span class="tier-from">от</span>
+              <span class="tier-amount">70</span>
+              <span class="tier-currency">BYN</span>
+            </div>
+            <ul class="tier-features">
+              <li><strong>20+</strong> готовых фотографий</li>
+              <li><strong>4–6</strong> образов / стилей</li>
+              <li>Высокое разрешение</li>
+              <li>Приоритет — <strong>1–2 дня</strong></li>
+              <li>Неограниченные правки</li>
+            </ul>
+            <a href="https://t.me/Mescallito" target="_blank" class="tier-cta tier-cta-outline">Написать</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PROMOS / SCRATCH CARDS -->
+    <section id="promos">
+      <div class="section-header">
+        <span class="section-tag">Акции</span>
+        <h2 class="section-title">Специальные предложения</h2>
+      </div>
+      <div class="scratch-grid">
+
+        <div class="scratch-card">
+          <div class="scratch-info">
+            <span class="scratch-icon">🎁</span>
+            <div class="scratch-title">Первая сессия</div>
+            <p class="scratch-desc">Ещё не пробовали AI-фотосессию? Скидка для новых клиентов — попробуйте без риска.
+            </p>
+            <span class="scratch-badge">−30% на базовый пакет</span>
+          </div>
+          <div class="scratch-zone">
+            <span class="scratch-hint">✦ Сотрите и узнайте промокод</span>
+            <div class="scratch-canvas-wrap" data-code="FIRST30">
+              <div class="scratch-reveal">
+                <span class="scratch-reveal-label">Ваш промокод</span>
+                <span class="scratch-reveal-code">FIRST30</span>
+                <span class="scratch-reveal-sub">Отправьте мне в Telegram</span>
+                <button class="copy-btn" onclick="copyCode(this,'FIRST30')">
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                    <rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3" />
+                    <path d="M1 9V2a1 1 0 011-1h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+                  </svg>
+                  Скопировать
+                </button>
+              </div>
+              <canvas class="scratch-canvas"></canvas>
+            </div>
+            <span class="scratch-done-msg">🎉 Промокод открыт! Отправьте его в Telegram при заказе</span>
+          </div>
+        </div>
+
+        <div class="scratch-card">
+          <div class="scratch-info">
+            <span class="scratch-icon">👥</span>
+            <div class="scratch-title">Приведи друга</div>
+            <p class="scratch-desc">Порекомендуйте меня другу — и вы оба получите скидку на следующий заказ.</p>
+            <span class="scratch-badge">−20% для вас и друга</span>
+          </div>
+          <div class="scratch-zone">
+            <span class="scratch-hint">✦ Сотрите и узнайте промокод</span>
+            <div class="scratch-canvas-wrap" data-code="FRIEND20">
+              <div class="scratch-reveal">
+                <span class="scratch-reveal-label">Ваш промокод</span>
+                <span class="scratch-reveal-code">FRIEND20</span>
+                <span class="scratch-reveal-sub">Отправьте мне в Telegram</span>
+                <button class="copy-btn" onclick="copyCode(this,'FRIEND20')">
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                    <rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3" />
+                    <path d="M1 9V2a1 1 0 011-1h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+                  </svg>
+                  Скопировать
+                </button>
+              </div>
+              <canvas class="scratch-canvas"></canvas>
+            </div>
+            <span class="scratch-done-msg">🎉 Промокод открыт! Отправьте его в Telegram при заказе</span>
+          </div>
+        </div>
+
+        <div class="scratch-card">
+          <div class="scratch-info">
+            <span class="scratch-icon">📸</span>
+            <div class="scratch-title">Тестовый снимок</div>
+            <p class="scratch-desc">Пришлите фото и получите один готовый снимок бесплатно — до оформления заказа.</p>
+            <span class="scratch-badge">1 фото бесплатно</span>
+          </div>
+          <div class="scratch-zone">
+            <span class="scratch-hint">✦ Сотрите и узнайте промокод</span>
+            <div class="scratch-canvas-wrap" data-code="TESTSHOT">
+              <div class="scratch-reveal">
+                <span class="scratch-reveal-label">Ваш промокод</span>
+                <span class="scratch-reveal-code">TESTSHOT</span>
+                <span class="scratch-reveal-sub">Отправьте мне в Telegram</span>
+                <button class="copy-btn" onclick="copyCode(this,'TESTSHOT')">
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                    <rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3" />
+                    <path d="M1 9V2a1 1 0 011-1h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+                  </svg>
+                  Скопировать
+                </button>
+              </div>
+              <canvas class="scratch-canvas"></canvas>
+            </div>
+            <span class="scratch-done-msg">🎉 Промокод открыт! Отправьте его в Telegram при заказе</span>
+          </div>
+        </div>
+
+        <div class="scratch-card">
+          <div class="scratch-info">
+            <span class="scratch-icon">⚡</span>
+            <div class="scratch-title">Горящее предложение</div>
+            <p class="scratch-desc">Первые 5 заказов каждого месяца — по специальной цене. Только для самых быстрых!</p>
+            <span class="scratch-badge">Ограниченное количество</span>
+          </div>
+          <div class="scratch-zone">
+            <span class="scratch-hint">✦ Сотрите и узнайте промокод</span>
+            <div class="scratch-canvas-wrap" data-code="FLASH5">
+              <div class="scratch-reveal">
+                <span class="scratch-reveal-label">Ваш промокод</span>
+                <span class="scratch-reveal-code">FLASH5</span>
+                <span class="scratch-reveal-sub">Отправьте мне в Telegram</span>
+                <button class="copy-btn" onclick="copyCode(this,'FLASH5')">
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                    <rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3" />
+                    <path d="M1 9V2a1 1 0 011-1h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+                  </svg>
+                  Скопировать
+                </button>
+              </div>
+              <canvas class="scratch-canvas"></canvas>
+            </div>
+            <span class="scratch-done-msg">🎉 Промокод открыт! Отправьте его в Telegram при заказе</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section id="process">
+      <div class="section-header">
+        <span class="section-tag">Процесс</span>
+        <h2 class="section-title">Как это работает</h2>
+      </div>
+      <div class="process-inner">
+        <div class="process-text">
+          <p>
+            <strong>Никакой студии, никаких лишних расходов.</strong> Вы получаете профессиональный результат, не выходя
+            из дома — всё, что нужно, это несколько ваших фотографий и ваше пожелание.
+          </p>
+          <p>
+            Я использую современные AI-инструменты и собственную экспертизу для создания образов, которые выглядят
+            естественно и профессионально. Каждая работа — это авторский подход, а не шаблон.
+          </p>
+          <a href="#contact" class="btn-primary" style="display:inline-flex;width:fit-content">
+            Начать проект
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </a>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <span class="step-num">01</span>
+            <div class="step-content">
+              <h4>Пришлите фото и ТЗ</h4>
+              <p>Несколько ваших фотографий хорошего качества и описание желаемого результата — стиль, настроение, цель.
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">02</span>
+            <div class="step-content">
+              <h4>Обсуждаем концепцию</h4>
+              <p>Вместе уточняем детали: образ, фон, одежда, освещение. Я предложу варианты, вы выберете направление.
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">03</span>
+            <div class="step-content">
+              <h4>Создаю фотосессию</h4>
+              <p>Генерация и ручная обработка. Работаю до тех пор, пока результат не будет вас устраивать.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">04</span>
+            <div class="step-content">
+              <h4>Получаете готовые фото</h4>
+              <p>Финальные изображения в высоком разрешении, готовые к публикации или печати.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-header">
+        <span class="section-tag">Обо мне</span>
+        <h2 class="section-title">Кто за этим стоит</h2>
+      </div>
+      <div class="about-inner">
+        <div class="about-visual">
+          <div class="about-card">
+            <div class="about-name">Павел<br><span>Дядюк</span></div>
+            <div class="about-role">PhotosetAI · AI-фотограф · Визуальный дизайнер</div>
+            <div class="about-stats">
+              <div>
+                <div class="stat-val">50+</div>
+                <div class="stat-label">довольных клиентов</div>
+              </div>
+              <div>
+                <div class="stat-val">200+</div>
+                <div class="stat-label">созданных образов</div>
+              </div>
+              <div>
+                <div class="stat-val">1</div>
+                <div class="stat-label">день — средний срок</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="about-text">
+          <p>
+            Привет! Я Павел — основатель студии <strong>PhotosetAI</strong>. Занимаюсь созданием
+            <strong>AI-фотосессий</strong>, которые выглядят как настоящие студийные снимки. На стыке технологий и
+            эстетики я помогаю людям и брендам получать качественный визуальный контент.
+          </p>
+          <p>
+            Каждый проект — это <strong>индивидуальный подход</strong>: я не использую шаблоны и не гонюсь за
+            количеством. Важно, чтобы на итоговых фото вы выглядели так, как хотите выглядеть — органично и убедительно.
+          </p>
+          <p>
+            Работаю быстро, на связи в Telegram, всегда отвечаю на вопросы. Давайте создадим что-то классное вместе.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="section-header">
+        <span class="section-tag">Связь</span>
+        <h2 class="section-title">Напишите мне</h2>
+      </div>
+      <div class="contact-inner">
+        <div>
+          <p class="contact-tagline">Готовы создать <em>ваш идеальный</em> образ?</p>
+          <p class="contact-note">Расскажите о вашем проекте — отвечу в течение нескольких часов. Первая консультация
+            бесплатна.</p>
+        </div>
+        <div class="contact-cards">
+
+          <a href="https://t.me/Mescallito" class="contact-card" target="_blank">
+            <div class="contact-icon icon-tg">
+              <svg width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1.5 10.5L24 1.5L17 20.5L11 13.5L1.5 10.5Z" stroke="white" stroke-width="1.6"
+                  stroke-linejoin="round" />
+                <path d="M11 13.5L15.5 9.5" stroke="white" stroke-width="1.6" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div class="contact-info">
+              <div class="contact-label">Telegram</div>
+              <div class="contact-value">@Mescallito</div>
+            </div>
+            <svg class="contact-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M5 15L15 5M15 5H7M15 5v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <!-- FOOTER -->
+  <footer>
+    © 2026 PhotosetAI · Павел &nbsp;·&nbsp; Все права защищены
+  </footer>
+
+  <!-- Scroll reveal -->
+  <script src="assets/js/main.js"></script>
 </body>
+
 </html>
