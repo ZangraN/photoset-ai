@@ -877,3 +877,20 @@ button { border: none; background: transparent; font-family: inherit; padding: 0
 @media(max-width:900px){ .skeleton-row { columns:2; } }
 @media(max-width:420px){ .skeleton-row { columns:1; } }
 
+/* ── CATEGORY NAV ── */
+.cat-nav-wrap { display:flex; justify-content:space-between; align-items:center; margin-top:40px; padding-top:32px; border-top:1px solid var(--glass-border); gap:20px; }
+.cat-nav-btn { display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--text); transition:transform 0.2s, color 0.2s; max-width:45%; }
+.cat-nav-btn:hover { color:var(--accent); }
+.cat-nav-btn.prev:hover { transform:translateX(-4px); }
+.cat-nav-btn.next:hover { transform:translateX(4px); }
+.cat-nav-text { display:flex; flex-direction:column; line-height:1.2; }
+.cat-nav-text span { font-size:0.65rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:4px; }
+.cat-nav-text strong { font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-weight:400; }
+.cat-nav-btn svg { color:var(--muted); transition:color 0.2s; }
+.cat-nav-btn:hover svg { color:var(--accent); }
+
+@media(max-width:600px) {
+  .cat-nav-text strong { font-size:0.95rem; }
+  .cat-nav-wrap { margin-top:32px; padding-top:24px; }
+}
+

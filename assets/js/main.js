@@ -1,5 +1,14 @@
 /* ── MAIN JS ── */
 const SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ48SSesrIXD0_IXpb5M_hGhrxa4QTSzbggIzoCulVMD02SeU_NzA7lcLy4tHrnEjURTqDQs7u4gL1b/pub?gid=0&single=true&output=csv";
+const CATEGORY_ORDER = ['business', 'lifestyle', 'fashion', 'travel', 'art', 'sport'];
+const CATEGORY_LABELS = {
+  'business': 'Бизнес',
+  'lifestyle': 'Lifestyle',
+  'fashion': 'Fashion',
+  'travel': 'Путешествия',
+  'art': 'Арт-проект',
+  'sport': 'Спорт'
+};
 window.DYNAMIC_DATA = null;
 
 // Simple CSV Parser for Google Sheets output
@@ -36,6 +45,7 @@ async function fetchPhotosData() {
     // If we're on a category page, re-build the grid with fresh data
     if (typeof window.currentGender !== 'undefined' && typeof window.buildGrid === 'function') {
       window.buildGrid(window.currentGender);
+      renderCategoryNav();
     }
   } catch (err) {
     console.error("Failed to fetch sheets data:", err);
@@ -395,4 +405,53 @@ window.buildGrid = function(gender) {
     el.style.transition=`opacity 0.5s cubic-bezier(0.22,1,0.36,1) ${i*0.07}s,transform 0.5s cubic-bezier(0.22,1,0.36,1) ${i*0.07}s`;
     obs.observe(el);
   });
+}
+
+function renderCategoryNav() {
+  const cat = window.currentCategory;
+  const gen = window.currentGender;
+  if (!cat || !gen) return;
+
+  const idx = CATEGORY_ORDER.indexOf(cat);
+  if (idx === -1) return;
+
+  const prevIdx = (idx - 1 + CATEGORY_ORDER.length) % CATEGORY_ORDER.length;
+  const nextIdx = (idx + 1) % CATEGORY_ORDER.length;
+
+  const prevCat = CATEGORY_ORDER[prevIdx];
+  const nextCat = CATEGORY_ORDER[nextIdx];
+
+  const prevUrl = prevCat === 'business' && gen === 'female' ? 'category-business.html' : `category-${prevCat}${gen === 'male' ? '-male' : ''}.html`;
+  const nextUrl = nextCat === 'business' && gen === 'female' ? 'category-business.html' : `category-${nextCat}${gen === 'male' ? '-male' : ''}.html`;
+
+  // Use the special case for category-business.html (female) if needed, but my rename script simplified things.
+  // Actually, all female files are category-NAME.html except business which is also category-business.html.
+  // So category-${name}.html is fine for female.
+
+  const navHtml = `
+    <div class="cat-nav-wrap">
+      <a href="${prevUrl}" class="cat-nav-btn prev">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 15l-5-5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="cat-nav-text">
+          <span>Назад</span>
+          <strong>${CATEGORY_LABELS[prevCat]}</strong>
+        </div>
+      </a>
+      <a href="${nextUrl}" class="cat-nav-btn next">
+        <div class="cat-nav-text">
+          <span>Вперёд</span>
+          <strong>${CATEGORY_LABELS[nextCat]}</strong>
+        </div>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 15l5-5-5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  `;
+
+  const header = document.querySelector('.cat-header');
+  if (header) {
+    // Remove existing if any
+    const existing = header.querySelector('.cat-nav-wrap');
+    if (existing) existing.remove();
+    header.insertAdjacentHTML('beforeend', navHtml);
+  }
 }
