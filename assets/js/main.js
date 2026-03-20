@@ -1,5 +1,42 @@
-
 /* ── MAIN JS ── */
+const SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ48SSesrIXD0_IXpb5M_hGhrxa4QTSzbggIzoCulVMD02SeU_NzA7lcLy4tHrnEjURTqDQs7u4gL1b/pub?gid=0&single=true&output=csv";
+window.DYNAMIC_DATA = null;
+
+// Simple CSV Parser for Google Sheets output
+function parseCSV(text) {
+  const lines = text.split(/\r?\n/).filter(l => l.trim() !== "");
+  const result = { male: {}, female: {} };
+  
+  // Skip header
+  for (let i = 1; i < lines.length; i++) {
+    // Basic regex to handle commas inside quotes
+    const matches = lines[i].match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
+    if (!matches || matches.length < 5) continue;
+    
+    const [gender, category, title, desc, url] = matches.map(s => s.replace(/^"|"$/g, '').trim());
+    
+    if (!result[gender][category]) {
+      result[gender][category] = { title, desc, photos: [] };
+    }
+    result[gender][category].photos.push(url);
+  }
+  return result;
+}
+
+async function fetchPhotosData() {
+  try {
+    const response = await fetch(SHEETS_CSV_URL);
+    const text = await response.text();
+    window.DYNAMIC_DATA = parseCSV(text);
+    
+    // If we're on a category page, re-build the grid with fresh data
+    if (typeof window.currentGender !== 'undefined' && typeof window.buildGrid === 'function') {
+      window.buildGrid(window.currentGender);
+    }
+  } catch (err) {
+    console.error("Failed to fetch sheets data:", err);
+  }
+}
 
 function toggleMenu() {
   const m = document.getElementById('mobileMenu');
@@ -67,6 +104,7 @@ window.appMoveGenderSlider = function(gender) {
 }
 
 window.addEventListener('load', () => {
+  fetchPhotosData(); // Start fetch immediately
   if (typeof window.currentGender !== 'undefined') {
     if (document.getElementById('catGrid')) {
       document.querySelectorAll('.gender-tab').forEach(t => t.classList.remove('active'));
@@ -309,8 +347,15 @@ window.addEventListener('load', () => {
 });
 
 window.buildGrid = function(gender) {
-  if (typeof window.DATA === 'undefined') return;
-  const data = window.DATA[gender];
+  let data;
+  if (window.DYNAMIC_DATA && window.DYNAMIC_DATA[gender] && window.DYNAMIC_DATA[gender][window.currentCategory]) {
+    data = window.DYNAMIC_DATA[gender][window.currentCategory];
+    window.TITLE = data.title; // Update TITLE globally from Sheet
+  } else if (typeof window.DATA !== 'undefined' && window.DATA[gender]) {
+    data = window.DATA[gender];
+  }
+
+  if (!data) return;
   const grid = document.getElementById('catGrid');
   if(!grid) return;
   const PHOTO_COUNT = data.photos.length > 0 ? data.photos.length : 3;
