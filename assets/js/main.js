@@ -11,16 +11,30 @@ function toggleMenu() {
 window.appSwitchGender = function(gender) {
   if (typeof window.currentGender !== 'undefined' && document.getElementById('catGrid')) {
     if (gender === window.currentGender) return;
-    window.currentGender = gender;
-    document.querySelectorAll('.gender-tab').forEach(t => {
-      if(t.dataset.gender === gender) t.classList.add('active');
-      else t.classList.remove('active');
-    });
-    appMoveGenderSlider(gender);
+    
+    let path = window.location.pathname;
+    let file = path.split('/').pop();
+    if (!file || file === '') file = 'index.html';
+    
+    if (gender === 'male') {
+      if (!file.includes('-male.html')) {
+        file = file.replace('.html', '-male.html');
+      }
+    } else {
+      if (file.includes('-male.html')) {
+        file = file.replace('-male.html', '.html');
+      }
+    }
+    
     const grid = document.getElementById('catGrid');
-    if(!grid) return;
-    grid.style.transition='opacity 0.2s'; grid.style.opacity='0';
-    setTimeout(() => { if(typeof window.buildGrid === 'function') window.buildGrid(gender); grid.style.opacity='1'; }, 200);
+    if(grid) {
+      grid.style.transition='opacity 0.2s'; 
+      grid.style.opacity='0';
+    }
+    
+    setTimeout(() => {
+      window.location.href = file + window.location.search + window.location.hash;
+    }, 200);
   } else {
     document.querySelectorAll('.gender-tab').forEach(t => t.classList.remove('active'));
     let target = document.querySelector(`.gender-tab[data-gender="${gender}"]`);
