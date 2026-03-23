@@ -526,25 +526,36 @@
   }
   .tier-sub { font-size: 0.8rem; color: var(--muted); line-height: 1.5; margin-bottom: 28px; }
 
-  .tier-price {
-    display: flex; align-items: baseline; gap: 8px;
-    margin-bottom: 28px; padding-bottom: 28px;
+  .tier-price-group {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 32px; padding-bottom: 28px;
     border-bottom: 1px solid var(--glass-border);
+    transition: transform 0.3s ease;
   }
-  .tier-from { font-size: 0.72rem; color: var(--muted); }
+  .tier:hover .tier-price-group { transform: translateY(-2px); }
+
+  .tier-main, .tier-secondary { display: flex; align-items: baseline; gap: 6px; }
+  
+  .tier-from { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
   .tier-amount {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 3.6rem; font-weight: 300; line-height: 1;
-    color: var(--text); letter-spacing: -0.03em;
+    font-size: 3.8rem; font-weight: 300; line-height: 1;
+    color: var(--text); letter-spacing: -0.02em;
   }
-  .tier-currency { font-size: 0.9rem; color: var(--muted); }
+  .tier-currency { font-size: 1rem; color: var(--muted); font-weight: 300; }
   .tier.popular .tier-amount { color: var(--accent); }
   
-  .tier-price-divider { font-size: 1.5rem; color: var(--glass-border); margin: 0 2px; }
+  .tier-price-divider {
+    width: 1px; height: 40px;
+    background: var(--glass-border);
+    transform: rotate(20deg);
+    opacity: 0.6;
+  }
+
   .tier-amount-alt {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2.4rem; font-weight: 300; line-height: 1;
-    color: var(--muted); letter-spacing: -0.02em;
+    font-size: 2.8rem; font-weight: 300; line-height: 1;
+    color: var(--text); opacity: 0.65; letter-spacing: -0.01em;
   }
 
   .tier-features {
