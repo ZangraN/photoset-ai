@@ -527,7 +527,7 @@
   .tier-sub { font-size: 0.8rem; color: var(--muted); line-height: 1.5; margin-bottom: 28px; }
 
   .tier-price {
-    display: flex; align-items: baseline; gap: 6px;
+    display: flex; align-items: baseline; gap: 8px;
     margin-bottom: 28px; padding-bottom: 28px;
     border-bottom: 1px solid var(--glass-border);
   }
@@ -539,7 +539,13 @@
   }
   .tier-currency { font-size: 0.9rem; color: var(--muted); }
   .tier.popular .tier-amount { color: var(--accent); }
-  .tier-price-alt { margin-top: -24px; margin-bottom: 24px; font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+  
+  .tier-price-divider { font-size: 1.5rem; color: var(--glass-border); margin: 0 2px; }
+  .tier-amount-alt {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem; font-weight: 300; line-height: 1;
+    color: var(--muted); letter-spacing: -0.02em;
+  }
 
   .tier-features {
     list-style: none; display: flex; flex-direction: column;
