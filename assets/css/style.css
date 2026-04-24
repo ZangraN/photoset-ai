@@ -127,7 +127,7 @@
   @keyframes scrolldown { 0%,100%{opacity:0.3;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(1.15)} }
 
   /* ── CATEGORIES ── */
-  #portfolio { padding: 100px 0; }
+  #portfolio { padding: 60px 0; }
   .section-header {
     display: flex; align-items: center; gap: 20px;
     margin-bottom: 0; padding: 0 40px;
@@ -288,7 +288,7 @@
   .case-desc { font-size: 1.1rem; color: var(--muted); line-height: 1.75; }
 
   /* ── PROCESS ── */
-  #process { padding: 100px 0; }
+  #process { padding: 60px 0; }
   .process-inner {
     display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
     align-items: center; padding: 0 40px;
@@ -319,7 +319,7 @@
   .step-content p { font-size: 1.05rem; color: var(--muted); line-height: 1.75; }
 
   /* ── ABOUT ── */
-  #about { padding: 100px 0; }
+  #about { padding: 60px 0; }
   .about-inner {
     display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
     align-items: center; padding: 0 40px;
@@ -374,7 +374,7 @@
   .about-text strong { color: var(--text); font-weight: 500; }
 
   /* ── CONTACT ── */
-  #contact { padding: 100px 0 120px; }
+  #contact { padding: 60px 0 80px; }
   .contact-inner {
     display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
     align-items: center; padding: 0 40px;
@@ -485,7 +485,7 @@
   }
 
   /* ── PRICING ── */
-  #pricing { padding: 100px 0; }
+  #pricing { padding: 60px 0; }
   .pricing-wrap { padding: 0 40px; margin-top: 56px; }
 
   .pricing-row {
@@ -607,7 +607,7 @@
   }
 
   /* ── REVIEWS ── */
-  #reviews { padding: 100px 0; overflow: hidden; position: relative; }
+  #reviews { padding: 60px 0; overflow: hidden; position: relative; }
   .reviews-container { max-width: 1120px; margin: 0 auto; padding: 0 40px; position: relative; }
   
   .reviews-slider-wrap {
@@ -676,7 +676,7 @@
   }
 
   /* ── SCRATCH CARDS ── */
-  #promos { padding: 100px 0; }
+  #promos { padding: 60px 0; }
 
   .scratch-grid {
     display: grid;
