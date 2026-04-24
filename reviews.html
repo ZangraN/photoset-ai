@@ -13,37 +13,30 @@
     rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css?v=9">
   <style>
-    :root {
-      --bg-color: #0c0c0c;
-      --card-bg: rgba(255, 255, 255, 0.03);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --text-main: #ffffff;
-      --text-muted: rgba(255, 255, 255, 0.5);
-      --accent-glow: rgba(138, 43, 226, 0.15);
-    }
-
     body {
-      background: var(--bg-color);
-      color: var(--text-main);
+      background: var(--white);
+      color: var(--text);
       overflow-x: hidden;
       font-family: 'DM Sans', sans-serif;
+      transition: background 0.3s;
     }
 
     /* Grainy Texture */
     body::after {
       content: ""; position: fixed; inset: 0;
       background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-      opacity: 0.15; pointer-events: none; z-index: 1000; filter: contrast(120%) brightness(100%);
+      opacity: 0.05; pointer-events: none; z-index: 1000; filter: contrast(120%) brightness(100%);
     }
 
-    /* Background blobs */
+    /* Background blobs - adaptive */
     .blob {
       position: fixed; width: 60vw; height: 60vw;
-      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-      z-index: -1; pointer-events: none; filter: blur(80px);
+      background: radial-gradient(circle, var(--accent2) 0%, transparent 70%);
+      z-index: -1; pointer-events: none; filter: blur(100px);
+      opacity: 0.1;
     }
     .blob-1 { top: -10%; right: -10%; }
-    .blob-2 { bottom: -10%; left: -10%; background: radial-gradient(circle, rgba(200, 100, 255, 0.1) 0%, transparent 70%); }
+    .blob-2 { bottom: -10%; left: -10%; opacity: 0.05; }
 
     .reviews-page-header {
       padding: 160px 40px 80px;
@@ -53,16 +46,18 @@
     }
     .section-tag {
       font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--accent2); margin-bottom: 24px; display: inline-block;
+      color: var(--accent); margin-bottom: 24px; display: inline-block;
+      font-weight: 600;
     }
     .section-title {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(3rem, 8vw, 6rem); font-weight: 300; line-height: 0.95;
       margin-bottom: 32px; letter-spacing: -0.02em;
+      color: var(--text);
     }
     .section-title em { font-style: italic; opacity: 0.8; }
     .hero-sub {
-      font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto;
+      font-size: 1.1rem; color: var(--muted); max-width: 600px; margin: 0 auto;
       line-height: 1.6; font-weight: 300;
     }
 
@@ -78,52 +73,49 @@
     .review-card-static {
       break-inside: avoid;
       margin-bottom: 32px;
-      background: var(--card-bg);
+      background: var(--glass-bg);
       backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--card-border);
+      border: 1px solid var(--glass-border);
       border-radius: 28px;
       padding: 14px;
       transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
       opacity: 0; transform: translateY(40px);
       cursor: zoom-in;
+      box-shadow: var(--glass-shadow);
     }
     .review-card-static.visible { opacity: 1; transform: translateY(0); }
     .review-card-static:hover {
       transform: translateY(-10px) scale(1.02);
-      background: rgba(255,255,255,0.06);
-      border-color: rgba(255,255,255,0.15);
-      box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+      border-color: var(--accent2);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.15);
     }
     .review-card-static img {
       width: 100%; height: auto; border-radius: 18px;
-      display: block; filter: brightness(0.95); transition: filter 0.4s;
+      display: block; transition: filter 0.4s;
     }
-    .review-card-static:hover img { filter: brightness(1.05); }
 
     .back-btn-wrap {
       position: fixed; top: 40px; left: 40px; z-index: 1100;
     }
     .btn-back {
       padding: 14px 28px; border-radius: 100px;
-      background: rgba(255,255,255,0.05); backdrop-filter: blur(16px);
-      border: 1px solid var(--card-border);
-      color: #fff; font-size: 0.85rem; font-weight: 500;
+      background: var(--glass-bg); backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      color: var(--text); font-size: 0.85rem; font-weight: 500;
       text-decoration: none; transition: all 0.4s;
       display: flex; align-items: center; gap: 8px;
+      box-shadow: var(--glass-shadow);
     }
     .btn-back:hover { 
-      background: #fff; color: #000; 
+      background: var(--accent); color: #fff; 
+      border-color: var(--accent);
       transform: translateX(-5px); 
-      box-shadow: 0 10px 30px rgba(255,255,255,0.1);
     }
 
     #loadingReviews {
-      text-align: center; padding: 100px; color: var(--text-muted);
+      text-align: center; padding: 100px; color: var(--muted);
       font-size: 0.9rem; letter-spacing: 0.1em;
     }
-
-    /* Lightbox update for dark theme */
-    .lightbox-overlay { background: rgba(5,5,5,0.95); }
 
     @media (max-width: 900px) {
       .reviews-masonry { columns: 2 250px; padding: 0 24px 80px; }
