@@ -237,7 +237,118 @@ window.copyCode = function(btn, code) {
 
 window.addEventListener('load', () => {
   document.querySelectorAll('.scratch-canvas-wrap').forEach(w => initScratch(w));
+  initReviews();
 });
+
+/* ── REVIEWS CAROUSEL ── */
+function initReviews() {
+  const slider = document.getElementById('reviewsSlider');
+  const wrap = document.getElementById('reviewsSliderWrap');
+  const prev = document.getElementById('revPrev');
+  const next = document.getElementById('revNext');
+  const dotsContainer = document.getElementById('revDots');
+  if (!slider || !wrap) return;
+
+  let curIdx = 0;
+  let cards = Array.from(slider.querySelectorAll('.review-card'));
+  
+  function getCardsPerPage() {
+    return window.innerWidth > 900 ? 2 : 1;
+  }
+
+  function update() {
+    const cpp = getCardsPerPage();
+    const totalPages = Math.ceil(cards.length / cpp);
+    if (curIdx >= totalPages) curIdx = totalPages - 1;
+    if (curIdx < 0) curIdx = 0;
+
+    const gap = 24;
+    const cardWidth = cards[0].offsetWidth;
+    const move = curIdx * (cardWidth * cpp + gap * cpp);
+    slider.style.transform = `translateX(-${move}px)`;
+
+    // Update buttons
+    if (prev) prev.disabled = curIdx === 0;
+    if (next) next.disabled = curIdx >= totalPages - 1;
+
+    // Update dots
+    if (dotsContainer) {
+      dotsContainer.innerHTML = '';
+      for (let i = 0; i < totalPages; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'rev-dot' + (i === curIdx ? ' active' : '');
+        dot.onclick = () => { curIdx = i; update(); };
+        dotsContainer.appendChild(dot);
+      }
+    }
+  }
+
+  if (prev) prev.onclick = () => { curIdx--; update(); };
+  if (next) next.onclick = () => { curIdx++; update(); };
+
+  // Swipe support
+  let startX = 0, isDown = false;
+  wrap.addEventListener('mousedown', (e) => { isDown = true; startX = e.pageX; });
+  wrap.addEventListener('mouseleave', () => { isDown = false; });
+  wrap.addEventListener('mouseup', (e) => {
+    if (!isDown) return;
+    isDown = false;
+    const diff = e.pageX - startX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) curIdx--; else curIdx++;
+      update();
+    }
+  });
+
+  wrap.addEventListener('touchstart', (e) => { startX = e.touches[0].pageX; }, {passive: true});
+  wrap.addEventListener('touchend', (e) => {
+    const diff = e.changedTouches[0].pageX - startX;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) curIdx--; else curIdx++;
+      update();
+    }
+  }, {passive: true});
+
+  window.addEventListener('resize', update);
+  update();
+
+  // Load reviews from Sheet (optional integration)
+  // fetchReviews('YOUR_SHEET_CSV_URL');
+}
+
+async function fetchReviews(url) {
+  try {
+    const res = await fetch(url);
+    const csv = await res.text();
+    const rows = csv.split('\n').slice(1); // skip header
+    const slider = document.getElementById('reviewsSlider');
+    if (!slider) return;
+
+    let html = '';
+    rows.forEach(row => {
+      const cols = row.split(',').map(c => c.trim().replace(/^"|"$/g, ''));
+      if (cols.length < 3) return;
+      const [name, role, text, rating] = cols;
+      html += `
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-avatar">${name.charAt(0)}</div>
+            <div class="review-author-info">
+              <span class="review-name">${name}</span>
+              <span class="review-role">${role}</span>
+            </div>
+          </div>
+          <div class="review-rating">${'★'.repeat(parseInt(rating) || 5)}</div>
+          <p class="review-text">${text}</p>
+        </div>
+      `;
+    });
+    if (html) {
+      slider.innerHTML = html;
+      initReviews(); // Re-init
+    }
+  } catch (e) { console.error('Reviews load error:', e); }
+}
 
 window.addEventListener('load', () => {
   const observer = new IntersectionObserver((entries) => {

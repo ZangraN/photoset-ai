@@ -606,6 +606,93 @@
     .tier-amount { font-size: 3rem; }
   }
 
+  /* ── REVIEWS ── */
+  #reviews { padding: 100px 0; overflow: hidden; position: relative; }
+  .reviews-container { max-width: 1120px; margin: 0 auto; padding: 0 40px; position: relative; }
+  
+  .reviews-slider-wrap {
+    margin-top: 56px;
+    position: relative;
+    cursor: grab;
+  }
+  .reviews-slider-wrap:active { cursor: grabbing; }
+
+  .reviews-slider {
+    display: flex;
+    gap: 24px;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+
+  .review-card {
+    min-width: calc(50% - 12px);
+    background: var(--glass-bg);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--glass-border);
+    border-radius: 28px;
+    padding: 40px;
+    box-shadow: var(--glass-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: transform 0.3s;
+  }
+  .review-card:hover { transform: translateY(-4px); }
+
+  .review-header { display: flex; align-items: center; gap: 16px; }
+  .review-avatar {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--off-white);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; color: var(--accent2);
+    border: 1px solid var(--glass-border);
+  }
+  .review-author-info { display: flex; flex-direction: column; }
+  .review-name { font-weight: 500; font-size: 1.1rem; color: var(--text); }
+  .review-role { font-size: 0.8rem; color: var(--muted); letter-spacing: 0.04em; }
+
+  .review-rating { display: flex; gap: 4px; color: #FFB800; font-size: 0.9rem; }
+
+  .review-text {
+    font-size: 1.1rem; color: var(--text); line-height: 1.7;
+    font-weight: 300; font-style: italic;
+    position: relative;
+  }
+  .review-text::before {
+    content: '"';
+    position: absolute; left: -15px; top: -10px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem; color: var(--accent); opacity: 0.15;
+    line-height: 1;
+  }
+
+  .reviews-nav {
+    display: flex; justify-content: center; gap: 16px; margin-top: 48px;
+  }
+  .rev-nav-btn {
+    width: 48px; height: 48px; border-radius: 50%;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text); cursor: pointer; transition: all 0.3s;
+  }
+  .rev-nav-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .rev-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .rev-dots { display: flex; gap: 8px; align-items: center; }
+  .rev-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--glass-border); cursor: pointer;
+    transition: all 0.3s;
+  }
+  .rev-dot.active { width: 24px; background: var(--accent2); border-radius: 10px; }
+
+  @media (max-width: 900px) {
+    .review-card { min-width: 100%; }
+    .review-text { font-size: 1rem; }
+  }
+
   /* ── SCRATCH CARDS ── */
   #promos { padding: 100px 0; }
 
