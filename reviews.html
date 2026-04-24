@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Отзывы — Photoset AI</title>
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css?v=9">
+  <style>
+    .reviews-page-header {
+      padding: 140px 40px 60px;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 32px;
+      padding: 0 40px 100px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .review-card-static {
+      background: var(--glass-bg);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 10px;
+      box-shadow: var(--glass-shadow);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      overflow: hidden;
+    }
+    .review-card-static:hover { transform: translateY(-8px); }
+    .review-card-static img {
+      width: 100%; height: auto; border-radius: 12px;
+      display: block;
+    }
+    #loadingReviews {
+        text-align: center; padding: 40px; color: var(--muted);
+    }
+    @media (max-width: 600px) {
+      .reviews-page-header { padding: 100px 20px 40px; }
+      .reviews-grid { grid-template-columns: 1fr; padding: 0 20px 80px; gap: 20px; }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="nav-blur"></div>
+    <div class="nav-content">
+      <a href="index.html" class="logo">Photoset<span>AI</span></a>
+      <div class="nav-links">
+        <a href="index.html">Назад на главную</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="reviews-page-header">
+    <div class="section-tag">Мнение</div>
+    <h1 class="section-title">Что говорят <em>клиенты</em></h1>
+    <p class="hero-sub" style="margin-top: 20px;">Честные отзывы в виде скриншотов из переписки. Нажмите на любой отзыв, чтобы увеличить.</p>
+  </header>
+
+  <main>
+    <div id="loadingReviews">Загрузка отзывов...</div>
+    <div class="reviews-grid" id="fullReviewsGrid">
+      <!-- Будет заполнено из Google Sheets -->
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2024 Photoset AI. Все права защищены.
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lightbox">
+    <div class="lightbox-overlay" id="lightboxOverlay"></div>
+    <div class="lightbox-content">
+      <img id="lightboxImg" src="" alt="Fullscreen Review">
+      <button class="lightbox-close" id="lightboxClose">&times;</button>
+    </div>
+  </div>
+
+  <script src="assets/js/main.js"></script>
+  <script>
+    // Специальная логика для страницы отзывов
+    async function loadAllReviews() {
+        const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR0J7WbDhRUobmGiPwGJ5sllkRsf-gYh6M0FIuYvXKPwsWuZvTgOVqhDLlTiOi24Qh9klJdIoIa-Cmm/pub?output=csv';
+        const grid = document.getElementById('fullReviewsGrid');
+        const loading = document.getElementById('loadingReviews');
+        const lb = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lightboxImg');
+        const lbClose = document.getElementById('lightboxClose');
+        const lbOverlay = document.getElementById('lightboxOverlay');
+
+        try {
+            const res = await fetch(url);
+            const csv = await res.text();
+            const rows = csv.split('\n').filter(r => r.trim() !== '');
+            
+            loading.style.display = 'none';
+            let html = '';
+            rows.forEach(url => {
+                const imgUrl = url.trim().replace(/^"|"$/g, '');
+                if (!imgUrl.startsWith('http')) return;
+                html += `
+                    <div class="review-card-static" onclick="openLB('${imgUrl}')">
+                        <img src="${imgUrl}" alt="Отзыв клиента" loading="lazy">
+                    </div>
+                `;
+            });
+            grid.innerHTML = html;
+        } catch (e) {
+            loading.innerText = 'Ошибка загрузки отзывов. Попробуйте позже.';
+        }
+    }
+
+    function openLB(src) {
+        const lb = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lightboxImg');
+        lbImg.src = src;
+        lb.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    const closeLb = () => {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = '';
+    };
+    document.getElementById('lightboxClose').onclick = closeLb;
+    document.getElementById('lightboxOverlay').onclick = closeLb;
+
+    window.addEventListener('DOMContentLoaded', loadAllReviews);
+  </script>
+</body>
+
+</html>
