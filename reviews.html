@@ -13,61 +13,93 @@
     rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css?v=9">
   <style>
-    .reviews-page-header {
-      padding: 140px 40px 60px;
-      text-align: center;
-      max-width: 900px;
-      margin: 0 auto;
+    body {
+      background: #fdfdfd;
+      position: relative;
     }
+    body::before {
+      content: ""; position: fixed; inset: 0;
+      background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+      opacity: 0.03; pointer-events: none; z-index: 100;
+    }
+
+    .reviews-page-header {
+      padding: 180px 40px 100px;
+      text-align: center;
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .reviews-page-header::after {
+        content: ''; position: absolute; top: 10%; left: 50%; width: 600px; height: 600px;
+        background: radial-gradient(circle, rgba(var(--accent-rgb, 120, 100, 200), 0.05) 0%, transparent 70%);
+        transform: translate(-50%, -50%); z-index: -1;
+    }
+
     .reviews-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 32px;
-      padding: 0 40px 100px;
-      max-width: 1200px;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 40px;
+      padding: 0 40px 120px;
+      max-width: 1300px;
       margin: 0 auto;
     }
+
     .review-card-static {
-      background: var(--glass-bg);
-      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 10px;
-      box-shadow: var(--glass-shadow);
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.04);
+      border-radius: 24px;
+      padding: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.03);
       cursor: pointer;
-      transition: transform 0.3s ease;
-      overflow: hidden;
+      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      opacity: 0; transform: translateY(30px);
     }
-    .review-card-static:hover { transform: translateY(-8px); }
+    .review-card-static.visible { opacity: 1; transform: translateY(0); }
+    .review-card-static:hover { 
+        transform: translateY(-12px) scale(1.02); 
+        box-shadow: 0 30px 70px rgba(0,0,0,0.07);
+    }
     .review-card-static img {
-      width: 100%; height: auto; border-radius: 12px;
+      width: 100%; height: auto; border-radius: 16px;
       display: block;
     }
+
     #loadingReviews {
-        text-align: center; padding: 40px; color: var(--muted);
+      text-align: center; padding: 100px 40px; 
+      font-size: 1.1rem; color: var(--muted); letter-spacing: 0.05em;
     }
+
+    .back-btn-wrap {
+        position: fixed; top: 30px; left: 30px; z-index: 1000;
+    }
+    .btn-back {
+        padding: 12px 24px; border-radius: 50px;
+        background: var(--glass-bg); backdrop-filter: blur(12px);
+        border: 1px solid var(--glass-border);
+        color: var(--text); font-size: 0.9rem; font-weight: 500;
+        transition: all 0.3s;
+    }
+    .btn-back:hover { background: var(--text); color: #fff; transform: translateX(-5px); }
+
     @media (max-width: 600px) {
-      .reviews-page-header { padding: 100px 20px 40px; }
-      .reviews-grid { grid-template-columns: 1fr; padding: 0 20px 80px; gap: 20px; }
+      .reviews-page-header { padding: 120px 24px 60px; }
+      .reviews-grid { grid-template-columns: 1fr; padding: 0 20px 80px; gap: 24px; }
+      .back-btn-wrap { top: 20px; left: 20px; }
     }
   </style>
 </head>
 
 <body>
-  <nav>
-    <div class="nav-blur"></div>
-    <div class="nav-content">
-      <a href="index.html" class="logo">Photoset<span>AI</span></a>
-      <div class="nav-links">
-        <a href="index.html">Назад на главную</a>
-      </div>
-    </div>
-  </nav>
+  <div class="back-btn-wrap">
+    <a href="index.html" class="btn-back">← На главную</a>
+  </div>
 
   <header class="reviews-page-header">
     <div class="section-tag">Мнение</div>
     <h1 class="section-title">Что говорят <em>клиенты</em></h1>
-    <p class="hero-sub" style="margin-top: 20px;">Честные отзывы в виде скриншотов из переписки. Нажмите на любой отзыв, чтобы увеличить.</p>
+    <p class="hero-sub" style="margin-top: 20px;">Честные отзывы в виде скриншотов из переписки. Нажмите на любой отзыв,
+      чтобы увеличить.</p>
   </header>
 
   <main>
@@ -78,7 +110,7 @@
   </main>
 
   <footer>
-    &copy; 2024 Photoset AI. Все права защищены.
+    &copy; 2026 Photoset AI. Все права защищены.
   </footer>
 
   <!-- LIGHTBOX -->
@@ -94,47 +126,53 @@
   <script>
     // Специальная логика для страницы отзывов
     async function loadAllReviews() {
-        const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR0J7WbDhRUobmGiPwGJ5sllkRsf-gYh6M0FIuYvXKPwsWuZvTgOVqhDLlTiOi24Qh9klJdIoIa-Cmm/pub?output=csv';
-        const grid = document.getElementById('fullReviewsGrid');
-        const loading = document.getElementById('loadingReviews');
-        const lb = document.getElementById('lightbox');
-        const lbImg = document.getElementById('lightboxImg');
-        const lbClose = document.getElementById('lightboxClose');
-        const lbOverlay = document.getElementById('lightboxOverlay');
+      const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR0J7WbDhRUobmGiPwGJ5sllkRsf-gYh6M0FIuYvXKPwsWuZvTgOVqhDLlTiOi24Qh9klJdIoIa-Cmm/pub?output=csv';
+      const grid = document.getElementById('fullReviewsGrid');
+      const loading = document.getElementById('loadingReviews');
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lightboxImg');
+      const lbClose = document.getElementById('lightboxClose');
+      const lbOverlay = document.getElementById('lightboxOverlay');
 
-        try {
-            const res = await fetch(url);
-            const csv = await res.text();
-            const rows = csv.split('\n').filter(r => r.trim() !== '');
-            
-            loading.style.display = 'none';
-            let html = '';
-            rows.forEach(url => {
-                const imgUrl = url.trim().replace(/^"|"$/g, '');
-                if (!imgUrl.startsWith('http')) return;
-                html += `
-                    <div class="review-card-static" onclick="openLB('${imgUrl}')">
-                        <img src="${imgUrl}" alt="Отзыв клиента" loading="lazy">
-                    </div>
-                `;
-            });
-            grid.innerHTML = html;
-        } catch (e) {
-            loading.innerText = 'Ошибка загрузки отзывов. Попробуйте позже.';
-        }
+      try {
+        const res = await fetch(url);
+        const csv = await res.text();
+        const rows = csv.split('\n').filter(r => r.trim() !== '');
+
+        loading.style.display = 'none';
+        let html = '';
+        rows.forEach((url, i) => {
+          const imgUrl = url.trim().replace(/^"|"$/g, '');
+          if (!imgUrl.startsWith('http')) return;
+
+          const card = document.createElement('div');
+          card.className = 'review-card-static';
+          card.onclick = () => openLB(imgUrl);
+          card.innerHTML = `<img src="${imgUrl}" alt="Отзыв клиента" loading="lazy">`;
+
+          grid.appendChild(card);
+
+          // Staggered reveal
+          setTimeout(() => {
+            card.classList.add('visible');
+          }, i * 100);
+        });
+      } catch (e) {
+        loading.innerText = 'Ошибка загрузки отзывов. Попробуйте позже.';
+      }
     }
 
     function openLB(src) {
-        const lb = document.getElementById('lightbox');
-        const lbImg = document.getElementById('lightboxImg');
-        lbImg.src = src;
-        lb.classList.add('active');
-        document.body.style.overflow = 'hidden';
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lightboxImg');
+      lbImg.src = src;
+      lb.classList.add('active');
+      document.body.style.overflow = 'hidden';
     }
 
     const closeLb = () => {
-        document.getElementById('lightbox').classList.remove('active');
-        document.body.style.overflow = '';
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
     };
     document.getElementById('lightboxClose').onclick = closeLb;
     document.getElementById('lightboxOverlay').onclick = closeLb;
