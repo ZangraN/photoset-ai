@@ -3,8 +3,8 @@ const SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ48SSes
 const CATEGORY_ORDER = ['business', 'lifestyle', 'fashion', 'travel', 'art', 'sport'];
 const CATEGORY_LABELS = {
   'business': 'Бизнес',
-  'lifestyle': 'Lifestyle',
-  'fashion': 'Fashion',
+  'lifestyle': 'Образ жизни',
+  'fashion': 'Мода и стиль',
   'travel': 'Путешествия',
   'art': 'Арт-проект',
   'sport': 'Спорт'
