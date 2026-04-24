@@ -293,33 +293,70 @@ function initReviews() {
   if (next) next.onclick = () => { curIdx++; update(); };
 
   // Swipe support
-  let startX = 0, isDown = false;
-  wrap.addEventListener('mousedown', (e) => { isDown = true; startX = e.pageX; });
-  wrap.addEventListener('mouseleave', () => { isDown = false; });
+  let startX = 0, isDown = false, startTime = 0;
+  wrap.addEventListener('mousedown', (e) => { 
+    isDown = true; startX = e.pageX; startTime = Date.now();
+    slider.style.transition = 'none';
+  });
+  wrap.addEventListener('mouseleave', () => { isDown = false; slider.style.transition = ''; });
   wrap.addEventListener('mouseup', (e) => {
     if (!isDown) return;
     isDown = false;
+    slider.style.transition = '';
     const diff = e.pageX - startX;
-    if (Math.abs(diff) > 50) {
+    const time = Date.now() - startTime;
+    if (Math.abs(diff) > 50 || (Math.abs(diff) > 20 && time < 250)) {
       if (diff > 0) curIdx--; else curIdx++;
-      update();
     }
+    update();
   });
 
-  wrap.addEventListener('touchstart', (e) => { startX = e.touches[0].pageX; }, {passive: true});
+  wrap.addEventListener('touchstart', (e) => { 
+    startX = e.touches[0].pageX; 
+    startTime = Date.now();
+    slider.style.transition = 'none';
+  }, {passive: true});
   wrap.addEventListener('touchend', (e) => {
+    slider.style.transition = '';
     const diff = e.changedTouches[0].pageX - startX;
-    if (Math.abs(diff) > 40) {
+    const time = Date.now() - startTime;
+    if (Math.abs(diff) > 40 || (Math.abs(diff) > 20 && time < 250)) {
       if (diff > 0) curIdx--; else curIdx++;
-      update();
     }
+    update();
   }, {passive: true});
 
   window.addEventListener('resize', update);
   update();
 
-  // Load reviews from Sheet (URL CSV)
-  fetchReviews('https://docs.google.com/spreadsheets/d/e/2PACX-1vR0J7WbDhRUobmGiPwGJ5sllkRsf-gYh6M0FIuYvXKPwsWuZvTgOVqhDLlTiOi24Qh9klJdIoIa-Cmm/pub?output=csv');
+  // CLICK TO OPEN LIGHTBOX
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightboxImg');
+  const lbClose = document.getElementById('lightboxClose');
+  const lbOverlay = document.getElementById('lightboxOverlay');
+
+  if (lb && lbImg) {
+    cards.forEach(card => {
+      card.onclick = () => {
+        const img = card.querySelector('img');
+        if (img) {
+          lbImg.src = img.src;
+          lb.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+      };
+    });
+
+    const closeLb = () => {
+      lb.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+    if (lbClose) lbClose.onclick = closeLb;
+    if (lbOverlay) lbOverlay.onclick = closeLb;
+  }
+
+  // Initial load or check
+  // fetchReviews('...');
 }
 
 async function fetchReviews(url) {
@@ -327,7 +364,6 @@ async function fetchReviews(url) {
     const res = await fetch(url);
     const csv = await res.text();
     const rows = csv.split('\n').filter(r => r.trim() !== '');
-    // Если первая строка - заголовок, убираем: .slice(1)
     const slider = document.getElementById('reviewsSlider');
     if (!slider) return;
 
@@ -349,6 +385,14 @@ async function fetchReviews(url) {
 }
 
 window.addEventListener('load', () => {
+  // Scratch cards
+  document.querySelectorAll('.scratch-canvas-wrap').forEach(w => initScratch(w));
+  
+  // Reviews initialization & loading
+  initReviews();
+  fetchReviews('https://docs.google.com/spreadsheets/d/e/2PACX-1vR0J7WbDhRUobmGiPwGJ5sllkRsf-gYh6M0FIuYvXKPwsWuZvTgOVqhDLlTiOi24Qh9klJdIoIa-Cmm/pub?output=csv');
+
+  // Intersection Observer for scroll animations
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
