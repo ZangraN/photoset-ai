@@ -253,6 +253,7 @@ function initReviews() {
   let cards = Array.from(slider.querySelectorAll('.review-card'));
   
   function getCardsPerPage() {
+    if (window.innerWidth > 1100) return 4;
     if (window.innerWidth > 900) return 3;
     if (window.innerWidth > 600) return 2;
     return 1;
