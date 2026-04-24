@@ -253,7 +253,9 @@ function initReviews() {
   let cards = Array.from(slider.querySelectorAll('.review-card'));
   
   function getCardsPerPage() {
-    return window.innerWidth > 900 ? 2 : 1;
+    if (window.innerWidth > 900) return 3;
+    if (window.innerWidth > 600) return 2;
+    return 1;
   }
 
   function update() {
@@ -264,8 +266,11 @@ function initReviews() {
 
     const gap = 24;
     const cardWidth = cards[0].offsetWidth;
-    const move = curIdx * (cardWidth * cpp + gap * cpp);
-    slider.style.transform = `translateX(-${move}px)`;
+    const move = curIdx * (cardWidth + gap); // Сдвиг на одну карточку для плавности
+    
+    // Но более надежно для постраничного:
+    const pageMove = curIdx * (cardWidth * cpp + gap * cpp);
+    slider.style.transform = `translateX(-${pageMove}px)`;
 
     // Update buttons
     if (prev) prev.disabled = curIdx === 0;
@@ -312,7 +317,7 @@ function initReviews() {
   window.addEventListener('resize', update);
   update();
 
-  // Load reviews from Sheet (optional integration)
+  // Load reviews from Sheet (URL CSV)
   // fetchReviews('YOUR_SHEET_CSV_URL');
 }
 
@@ -320,32 +325,24 @@ async function fetchReviews(url) {
   try {
     const res = await fetch(url);
     const csv = await res.text();
-    const rows = csv.split('\n').slice(1); // skip header
+    const rows = csv.split('\n').filter(r => r.trim() !== '');
+    // Если первая строка - заголовок, убираем: .slice(1)
     const slider = document.getElementById('reviewsSlider');
     if (!slider) return;
 
     let html = '';
-    rows.forEach(row => {
-      const cols = row.split(',').map(c => c.trim().replace(/^"|"$/g, ''));
-      if (cols.length < 3) return;
-      const [name, role, text, rating] = cols;
+    rows.forEach(url => {
+      const imgUrl = url.trim().replace(/^"|"$/g, '');
+      if (!imgUrl.startsWith('http')) return;
       html += `
         <div class="review-card">
-          <div class="review-header">
-            <div class="review-avatar">${name.charAt(0)}</div>
-            <div class="review-author-info">
-              <span class="review-name">${name}</span>
-              <span class="review-role">${role}</span>
-            </div>
-          </div>
-          <div class="review-rating">${'★'.repeat(parseInt(rating) || 5)}</div>
-          <p class="review-text">${text}</p>
+          <img src="${imgUrl}" alt="Отзыв клиента" loading="lazy">
         </div>
       `;
     });
     if (html) {
       slider.innerHTML = html;
-      initReviews(); // Re-init
+      initReviews(); 
     }
   } catch (e) { console.error('Reviews load error:', e); }
 }
