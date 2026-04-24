@@ -318,7 +318,7 @@ function initReviews() {
   update();
 
   // Load reviews from Sheet (URL CSV)
-  // fetchReviews('YOUR_SHEET_CSV_URL');
+  fetchReviews('https://docs.google.com/spreadsheets/d/1yxG870MAhPuBB4zWlOjrShGQ97AeJHfL0tdevl9kRJ8/export?format=csv');
 }
 
 async function fetchReviews(url) {
