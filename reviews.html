@@ -13,86 +13,138 @@
     rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css?v=9">
   <style>
+    :root {
+      --bg-color: #0c0c0c;
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #ffffff;
+      --text-muted: rgba(255, 255, 255, 0.5);
+      --accent-glow: rgba(138, 43, 226, 0.15);
+    }
+
     body {
-      background: #fdfdfd;
-      position: relative;
+      background: var(--bg-color);
+      color: var(--text-main);
+      overflow-x: hidden;
+      font-family: 'DM Sans', sans-serif;
     }
-    body::before {
+
+    /* Grainy Texture */
+    body::after {
       content: ""; position: fixed; inset: 0;
-      background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
-      opacity: 0.03; pointer-events: none; z-index: 100;
+      background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+      opacity: 0.15; pointer-events: none; z-index: 1000; filter: contrast(120%) brightness(100%);
     }
+
+    /* Background blobs */
+    .blob {
+      position: fixed; width: 60vw; height: 60vw;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      z-index: -1; pointer-events: none; filter: blur(80px);
+    }
+    .blob-1 { top: -10%; right: -10%; }
+    .blob-2 { bottom: -10%; left: -10%; background: radial-gradient(circle, rgba(200, 100, 255, 0.1) 0%, transparent 70%); }
 
     .reviews-page-header {
-      padding: 180px 40px 100px;
+      padding: 160px 40px 80px;
       text-align: center;
-      max-width: 1000px;
+      max-width: 1120px;
       margin: 0 auto;
-      position: relative;
     }
-    .reviews-page-header::after {
-        content: ''; position: absolute; top: 10%; left: 50%; width: 600px; height: 600px;
-        background: radial-gradient(circle, rgba(var(--accent-rgb, 120, 100, 200), 0.05) 0%, transparent 70%);
-        transform: translate(-50%, -50%); z-index: -1;
+    .section-tag {
+      font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 24px; display: inline-block;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 8vw, 6rem); font-weight: 300; line-height: 0.95;
+      margin-bottom: 32px; letter-spacing: -0.02em;
+    }
+    .section-title em { font-style: italic; opacity: 0.8; }
+    .hero-sub {
+      font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto;
+      line-height: 1.6; font-weight: 300;
     }
 
-    .reviews-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 40px;
+    /* Masonry Grid */
+    .reviews-masonry {
+      columns: 4 300px;
+      column-gap: 32px;
       padding: 0 40px 120px;
-      max-width: 1300px;
+      max-width: 1400px;
       margin: 0 auto;
     }
 
     .review-card-static {
-      background: #fff;
-      border: 1px solid rgba(0,0,0,0.04);
-      border-radius: 24px;
-      padding: 12px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.03);
-      cursor: pointer;
-      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-      opacity: 0; transform: translateY(30px);
+      break-inside: avoid;
+      margin-bottom: 32px;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      padding: 14px;
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0; transform: translateY(40px);
+      cursor: zoom-in;
     }
     .review-card-static.visible { opacity: 1; transform: translateY(0); }
-    .review-card-static:hover { 
-        transform: translateY(-12px) scale(1.02); 
-        box-shadow: 0 30px 70px rgba(0,0,0,0.07);
+    .review-card-static:hover {
+      transform: translateY(-10px) scale(1.02);
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.15);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.4);
     }
     .review-card-static img {
-      width: 100%; height: auto; border-radius: 16px;
-      display: block;
+      width: 100%; height: auto; border-radius: 18px;
+      display: block; filter: brightness(0.95); transition: filter 0.4s;
+    }
+    .review-card-static:hover img { filter: brightness(1.05); }
+
+    .back-btn-wrap {
+      position: fixed; top: 40px; left: 40px; z-index: 1100;
+    }
+    .btn-back {
+      padding: 14px 28px; border-radius: 100px;
+      background: rgba(255,255,255,0.05); backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      color: #fff; font-size: 0.85rem; font-weight: 500;
+      text-decoration: none; transition: all 0.4s;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .btn-back:hover { 
+      background: #fff; color: #000; 
+      transform: translateX(-5px); 
+      box-shadow: 0 10px 30px rgba(255,255,255,0.1);
     }
 
     #loadingReviews {
-      text-align: center; padding: 100px 40px; 
-      font-size: 1.1rem; color: var(--muted); letter-spacing: 0.05em;
+      text-align: center; padding: 100px; color: var(--text-muted);
+      font-size: 0.9rem; letter-spacing: 0.1em;
     }
 
-    .back-btn-wrap {
-        position: fixed; top: 30px; left: 30px; z-index: 1000;
-    }
-    .btn-back {
-        padding: 12px 24px; border-radius: 50px;
-        background: var(--glass-bg); backdrop-filter: blur(12px);
-        border: 1px solid var(--glass-border);
-        color: var(--text); font-size: 0.9rem; font-weight: 500;
-        transition: all 0.3s;
-    }
-    .btn-back:hover { background: var(--text); color: #fff; transform: translateX(-5px); }
+    /* Lightbox update for dark theme */
+    .lightbox-overlay { background: rgba(5,5,5,0.95); }
 
-    @media (max-width: 600px) {
-      .reviews-page-header { padding: 120px 24px 60px; }
-      .reviews-grid { grid-template-columns: 1fr; padding: 0 20px 80px; gap: 24px; }
+    @media (max-width: 900px) {
+      .reviews-masonry { columns: 2 250px; padding: 0 24px 80px; }
       .back-btn-wrap { top: 20px; left: 20px; }
+    }
+    @media (max-width: 600px) {
+      .reviews-masonry { columns: 1; }
+      .reviews-page-header { padding: 120px 24px 60px; }
     }
   </style>
 </head>
 
 <body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
   <div class="back-btn-wrap">
-    <a href="index.html" class="btn-back">← На главную</a>
+    <a href="index.html" class="btn-back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        На главную
+    </a>
   </div>
 
   <header class="reviews-page-header">
@@ -104,7 +156,7 @@
 
   <main>
     <div id="loadingReviews">Загрузка отзывов...</div>
-    <div class="reviews-grid" id="fullReviewsGrid">
+    <div class="reviews-masonry" id="fullReviewsGrid">
       <!-- Будет заполнено из Google Sheets -->
     </div>
   </main>
