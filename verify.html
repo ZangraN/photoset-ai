@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Проверка сертификата | PhotosetAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    #verify {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 120px 20px;
+    }
+
+    .verify-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 32px;
+      padding: 60px 48px;
+      box-shadow: var(--glass-shadow);
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .verify-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+
+    .verify-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .verify-desc {
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+
+    .verify-form {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    @media (max-width: 500px) {
+      .verify-form {
+        flex-direction: column;
+      }
+    }
+
+    .verify-input {
+      flex: 1;
+      padding: 16px 24px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 100px;
+      font-family: inherit;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.6);
+      transition: all 0.3s;
+      text-align: center;
+      letter-spacing: 0.05em;
+    }
+
+    .verify-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: #fff;
+      box-shadow: 0 4px 15px rgba(255, 92, 53, 0.1);
+    }
+
+    .verify-btn {
+      padding: 16px 36px;
+      border-radius: 100px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .verify-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 92, 53, 0.3);
+    }
+
+    .verify-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Result states */
+    .verify-result {
+      display: none;
+      padding-top: 32px;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      animation: fadeup 0.5s forwards;
+    }
+
+    .result-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 1.8rem;
+    }
+
+    .status-active .result-icon {
+      background: rgba(13, 207, 170, 0.15);
+      color: #0DCFAA;
+    }
+
+    .status-used .result-icon {
+      background: rgba(245, 158, 11, 0.15);
+      color: #F59E0B;
+    }
+
+    .status-error .result-icon {
+      background: rgba(255, 92, 53, 0.15);
+      color: #FF5C35;
+    }
+
+    .result-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .status-active .result-title {
+      color: #0DCFAA;
+    }
+
+    .status-used .result-title {
+      color: #F59E0B;
+    }
+
+    .status-error .result-title {
+      color: #FF5C35;
+    }
+
+    .result-info {
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 24px;
+      text-align: left;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .info-row:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .info-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .info-value {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .loader {
+      display: none;
+      width: 24px;
+      height: 24px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Навигация (копия с сайта) -->
+  <nav>
+    <a href="index.html" class="nav-logo" style="text-decoration: none;">Photoset<span>.</span>AI</a>
+    <div class="nav-links">
+      <a href="index.html#portfolio">Работы</a>
+      <a href="index.html#pricing">Цены</a>
+      <a href="index.html#contact">Контакты</a>
+    </div>
+  </nav>
+
+  <!-- Секция верификации -->
+  <section id="verify">
+    <!-- Фон (Blob) -->
+    <div class="blob-wrap">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+    </div>
+
+    <div class="verify-card">
+      <h1 class="verify-title">Проверка <em>сертификата</em></h1>
+      <p class="verify-desc">Введите уникальный номер вашего подарочного сертификата, чтобы проверить его статус и
+        номинал.</p>
+
+      <form class="verify-form" onsubmit="event.preventDefault(); verifyCert();">
+        <input type="text" id="certId" class="verify-input" placeholder="Например: PAI-202601-ABCDEF" autocomplete="off"
+          required>
+        <button type="submit" id="verifyBtn" class="verify-btn">
+          <span class="btn-text">Проверить</span>
+          <div class="loader"></div>
+        </button>
+      </form>
+
+      <!-- Блок результата -->
+      <div id="resultBlock" class="verify-result">
+        <div id="resultIcon" class="result-icon">✓</div>
+        <div id="resultTitle" class="result-title">Сертификат действителен</div>
+        <p id="resultDesc" style="color: var(--muted);">Вы можете использовать его для записи на фотосессию.</p>
+
+        <div id="resultInfoBlock" class="result-info">
+          <div class="info-row">
+            <span class="info-label">Получатель</span>
+            <span class="info-value" id="resName">-</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Тариф</span>
+            <span class="info-value" id="resTariff">-</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Дата выдачи</span>
+            <span class="info-value" id="resDate">-</span>
+          </div>
+        </div>
+
+        <div style="margin-top: 32px;">
+          <a href="index.html#contact" class="btn-primary" style="display: inline-flex; text-decoration: none;">Написать
+            для записи</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // --- НАСТРОЙКИ ---
+    // ВСТАВЬ СЮДА ССЫЛКУ НА CSV ИЗ GOOGLE ТАБЛИЦЫ
+    // Как получить: Файл -> Опубликовать в интернете -> Весь документ -> CSV -> Опубликовать
+    const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRS_NiIX4G2sI2sf49CN2Xezjzpnnl_q3qVjtQB5czcwSI5Ruv5zcycnZFGbqx1K6BT1TWExFO3T22o/pub?output=csv';
+    // -----------------
+
+    async function verifyCert() {
+      const inputId = document.getElementById('certId').value.trim().toUpperCase();
+      if (!inputId) return;
+
+      if (GOOGLE_SHEET_CSV_URL === 'ТВОЯ_ССЫЛКА_НА_CSV_ЗДЕСЬ') {
+        alert('Разработчик: добавьте ссылку на CSV-файл Google Таблицы в код страницы.');
+        return;
+      }
+
+      const btn = document.getElementById('verifyBtn');
+      const btnText = btn.querySelector('.btn-text');
+      const loader = btn.querySelector('.loader');
+
+      btn.disabled = true;
+      btnText.style.display = 'none';
+      loader.style.display = 'block';
+
+      try {
+        const response = await fetch(GOOGLE_SHEET_CSV_URL);
+        const data = await response.text();
+
+        const rows = data.split('\n').map(row => {
+          // Простой парсинг CSV
+          return row.split(',').map(cell => cell.replace(/^"|"$/g, '').trim());
+        });
+
+        // Ищем сертификат
+        // Предполагаемый порядок колонок: 0-ID, 1-Имя, 2-Тариф, 3-Дата, 4-Примечание, 5-Статус
+        let found = null;
+        for (let i = 1; i < rows.length; i++) { // Пропускаем заголовок (0)
+          if (rows[i][0] === inputId) {
+            found = {
+              id: rows[i][0],
+              name: rows[i][1],
+              tariff: rows[i][2],
+              date: rows[i][3],
+              status: rows[i][5] || 'Активен' // Если статуса нет, считаем активным
+            };
+            break;
+          }
+        }
+
+        showResult(found);
+
+      } catch (err) {
+        console.error('Ошибка при загрузке CSV:', err);
+        showError('Произошла ошибка при проверке. Пожалуйста, попробуйте позже.');
+      } finally {
+        btn.disabled = false;
+        btnText.style.display = 'block';
+        loader.style.display = 'none';
+      }
+    }
+
+    function showResult(cert) {
+      const block = document.getElementById('resultBlock');
+      const icon = document.getElementById('resultIcon');
+      const title = document.getElementById('resultTitle');
+      const desc = document.getElementById('resultDesc');
+      const infoBlock = document.getElementById('resultInfoBlock');
+
+      block.className = 'verify-result'; // reset classes
+
+      if (!cert) {
+        // Не найден
+        block.classList.add('status-error');
+        icon.innerText = '✕';
+        title.innerText = 'Сертификат не найден';
+        desc.innerText = 'Проверьте правильность введенного номера. Он должен быть в формате PAI-XXXXXX-XXXXXX.';
+        infoBlock.style.display = 'none';
+      } else {
+        infoBlock.style.display = 'block';
+        document.getElementById('resName').innerText = cert.name;
+        document.getElementById('resTariff').innerText = cert.tariff;
+        document.getElementById('resDate').innerText = cert.date;
+
+        // Проверяем статус ("Использован" / "Активен")
+        if (cert.status.toLowerCase() === 'использован') {
+          block.classList.add('status-used');
+          icon.innerText = '!';
+          title.innerText = 'Сертификат уже использован';
+          desc.innerText = 'Данный подарочный сертификат уже был применен для фотосессии.';
+        } else {
+          block.classList.add('status-active');
+          icon.innerText = '✓';
+          title.innerText = 'Сертификат действителен';
+          desc.innerText = 'Отличные новости! Сертификат активен. Напишите нам, чтобы забронировать время.';
+        }
+      }
+
+      block.style.display = 'block';
+    }
+
+    function showError(msg) {
+      const block = document.getElementById('resultBlock');
+      block.className = 'verify-result status-error';
+      document.getElementById('resultIcon').innerText = '⚠';
+      document.getElementById('resultTitle').innerText = 'Ошибка';
+      document.getElementById('resultDesc').innerText = msg;
+      document.getElementById('resultInfoBlock').style.display = 'none';
+      block.style.display = 'block';
+    }
+  </script>
+</body>
+
+</html>
