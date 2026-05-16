@@ -1025,7 +1025,18 @@
     /* Pricing popular tier */
     .tier.popular { background: rgba(255,255,255,0.1); }
     .tier-cta-outline { border-color: rgba(255,255,255,0.15); color: var(--text); background: rgba(255,255,255,0.05); }
+
+    /* Burger Drawer Dark Mode */
+    .burger-drawer {
+      background: rgba(17,17,16,0.9);
+      border-left-color: rgba(255,255,255,0.08);
+      box-shadow: -20px 0 60px rgba(0,0,0,0.4);
+    }
+    .drawer-links a { color: #fff; }
+    .drawer-footer { border-top-color: rgba(255,255,255,0.08); }
+    .drawer-overlay { background: rgba(0,0,0,0.4); }
   }
+
 
 /* ── RESETS FOR SEMANTIC TAGS ── */
 button { border: none; background: transparent; font-family: inherit; padding: 0; outline: none; cursor: pointer; }
