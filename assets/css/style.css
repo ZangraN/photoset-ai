@@ -59,7 +59,27 @@
     color: var(--text);
   }
   .nav-logo span { color: var(--accent); }
-  .nav-mobile-btn { display: none; }
+  .nav-mobile-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 18px;
+    position: relative;
+    z-index: 1100;
+  }
+  .nav-mobile-btn span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--text);
+    border-radius: 4px;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s;
+  }
+  .nav-mobile-btn.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .nav-mobile-btn.active span:nth-child(2) { opacity: 0; transform: translateX(10px); }
+  .nav-mobile-btn.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
   .nav-links {
     display: flex;
     gap: 32px;
@@ -932,6 +952,20 @@
     #mobileMenu a { color: var(--text) !important; border-bottom-color: rgba(255,255,255,0.07) !important; }
     #mobileMenu a:last-child { color: var(--accent) !important; }
 
+    /* Burger Drawer Dark */
+    .burger-drawer {
+      background: rgba(17,17,16,0.92);
+      border-left-color: rgba(255,255,255,0.08);
+    }
+    .drawer-overlay {
+      background: rgba(0,0,0,0.4);
+    }
+    .social-icon {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.1);
+    }
+
+
     /* Buttons */
     .btn-secondary {
       border-color: rgba(255,255,255,0.15);
@@ -1089,5 +1123,174 @@ button { border: none; background: transparent; font-family: inherit; padding: 0
 @media(max-width:600px) {
   .cat-nav-text strong { font-size:0.95rem; }
   .cat-nav-wrap { margin-top:32px; padding-top:24px; }
+}
+
+
+/* ── BURGER DRAWER ── */
+.burger-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(340px, 85vw);
+  background: rgba(250,250,248,0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  z-index: 1000;
+  transform: translateX(100%);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  flex-direction: column;
+  padding: 100px 40px 60px;
+  border-left: 1px solid rgba(0,0,0,0.06);
+  box-shadow: -20px 0 60px rgba(0,0,0,0.05);
+}
+
+.burger-drawer.active {
+  transform: translateX(0);
+}
+
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s;
+}
+
+.drawer-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.drawer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: auto;
+}
+
+.drawer-links a {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  color: var(--text);
+  text-decoration: none;
+  opacity: 0;
+  transform: translateX(24px);
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  font-weight: 300;
+}
+
+.burger-drawer.active .drawer-links a {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Staggered Delay */
+.drawer-links a:nth-child(1) { transition-delay: 0.1s; }
+.drawer-links a:nth-child(2) { transition-delay: 0.16s; }
+.drawer-links a:nth-child(3) { transition-delay: 0.22s; }
+.drawer-links a:nth-child(4) { transition-delay: 0.28s; }
+.drawer-links a:nth-child(5) { transition-delay: 0.34s; }
+.drawer-links a:nth-child(6) { transition-delay: 0.40s; }
+.drawer-links a:nth-child(7) { transition-delay: 0.46s; }
+.drawer-links a:nth-child(8) { transition-delay: 0.52s; }
+
+.drawer-footer {
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s 0.6s, transform 0.5s 0.6s;
+}
+
+.burger-drawer.active .drawer-footer {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.drawer-socials {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.social-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  text-decoration: none;
+}
+
+.social-icon:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(255,92,53,0.2);
+}
+
+/* Body lock when menu open */
+body.drawer-open {
+  overflow: hidden;
+}
+
+/* Footer social layout */
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.footer-socials {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 8px;
+}
+.footer-socials a {
+  color: var(--muted);
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+}
+.footer-socials a:hover {
+  color: var(--accent);
+}
+
+/* Threads icon utility */
+.threads-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: currentColor;
+  -webkit-mask: url('../../threads.svg') no-repeat center;
+  mask: url('../../threads.svg') no-repeat center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+.social-icon .threads-icon {
+  width: 22px;
+  height: 22px;
+}
+.contact-icon .threads-icon {
+  width: 24px;
+  height: 24px;
+  color: white;
+}
+.footer-socials .threads-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
 }
 

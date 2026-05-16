@@ -53,10 +53,24 @@ async function fetchPhotosData() {
 }
 
 function toggleMenu() {
-  const m = document.getElementById('mobileMenu');
-  if (!m) return;
-  const open = m.style.display === 'flex';
-  m.style.display = open ? 'none' : 'flex';
+  const drawer = document.getElementById('burgerDrawer');
+  const overlay = document.getElementById('drawerOverlay');
+  const btn = document.getElementById('menuBtn');
+  if (!drawer || !overlay || !btn) return;
+
+  const isOpen = drawer.classList.contains('active');
+  
+  if (isOpen) {
+    drawer.classList.remove('active');
+    overlay.classList.remove('active');
+    btn.classList.remove('active');
+    document.body.classList.remove('drawer-open');
+  } else {
+    drawer.classList.add('active');
+    overlay.classList.add('active');
+    btn.classList.add('active');
+    document.body.classList.add('drawer-open');
+  }
 }
 
 window.appSwitchGender = function(gender) {
