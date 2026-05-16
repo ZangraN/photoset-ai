@@ -91,6 +91,13 @@
   }
   .nav-links a:hover { color: var(--accent); }
 
+  @media (max-width: 900px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .nav-mobile-btn { display: flex; }
+  }
+
+
   /* ── HERO ── */
   #hero {
     min-height: 100vh;
